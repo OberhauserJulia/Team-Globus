@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.utils import secure_filename
 import os
-from controller.controller import safe_math
+from controller.controller import safe_homework
 
 # Erstellen Sie einen Blueprint
 routes = Blueprint('routes', __name__)
@@ -10,7 +10,7 @@ UPLOAD_FOLDER = 'uploads'
 
 @routes.route('/', methods=['GET'])
 def home():
-    return safe_math()  
+    return safe_homework(request)  
 
 @routes.route('/upload', methods=['POST'])
 def upload_file():
