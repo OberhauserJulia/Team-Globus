@@ -1,6 +1,3 @@
-Sure, here's a `README.md` file for the `CameraHandler` class:
-
-```markdown
 # CameraHandler
 
 The `CameraHandler` class allows you to capture images from a webcam, encode the images to Base64, and send them to a server. This class is particularly useful for applications that need to process and transmit images from a camera.
@@ -70,6 +67,10 @@ Encodes the captured image frame to Base64 format. This is used internally by th
 ### `send_to_server(self, encoded_image)`
 
 Sends the Base64 encoded image to the server specified in the `.env` file. Returns the server's response.
+
+### Handling Server Response
+
+The handling of the server response is not yet fully implemented. Currently, the server's response is printed to the console. You can extend the `send_to_server` method to process the response as needed for your application.
 
 ## Example
 
@@ -180,7 +181,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 - [OpenCV](https://opencv.org/)
 - [Requests](https://docs.python-requests.org/en/master/)
 - [Python-dotenv](https://saurabh-kumar.com/python-dotenv/)
-
 ```
-
-This `README.md` file provides an overview of the `CameraHandler` class, its features, requirements, installation steps, usage instructions, and an example. It also includes a brief description of each method in the class.
