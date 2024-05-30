@@ -3,10 +3,7 @@ import base64
 import numpy as np
 import requests
 import os
-from dotenv import load_dotenv
 
-# Load environment variables from .env file such as the server API
-load_dotenv()
 
 class CameraHandler:
     def __init__(self, save_path='./image_captured/captured_image.jpg'):
@@ -90,10 +87,5 @@ class CameraHandler:
 
 
 
-if __name__ == "__main__":# Example usage
-    camera_handler = CameraHandler()
-    response = camera_handler.capture_image()
-    if response:
-        print("Server response:")
-        print(response)
+    
 

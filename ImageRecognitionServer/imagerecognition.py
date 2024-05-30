@@ -9,6 +9,7 @@ import uvicorn
 import base64
 import io
 
+print("ModelBackend is starting")
 app = FastAPI()
 
 # Load the Hugging Face model and processor
@@ -22,11 +23,11 @@ class ImageData(BaseModel):
 async def predict(image_data: ImageData):
     print("request eneterd")
     try:
-        
+
         # Decode the base64 string
         image_bytes = base64.b64decode(image_data.base64_image)
         image = Image.open(io.BytesIO(image_bytes))
-        
+
         # Preprocess the image
         inputs = processor(images=image, return_tensors="pt")
         
@@ -35,7 +36,7 @@ async def predict(image_data: ImageData):
         text = processor.decode(outputs[0], skip_special_tokens=True)
 
         return {"text": text}
-    
+
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
