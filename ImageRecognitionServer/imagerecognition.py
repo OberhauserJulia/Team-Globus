@@ -34,7 +34,7 @@ async def predict(image_data: ImageData):
         # Generate text
         outputs = model.generate(**inputs)
         text = processor.decode(outputs[0], skip_special_tokens=True)
-
+        print(text)
         return {"text": text}
 
     except Exception as e:
