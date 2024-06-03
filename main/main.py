@@ -41,16 +41,18 @@ if __name__ == "__main__":
     print(story_json)
 
     # Now you can access the 'response' field
-    text = str(story_json["response"])
-    print(text)
+    sotry_text = str(story_json["response"])
+    print(sotry_text)
+
     client = Client("mrfakename/MeloTTS")
     result = client.predict(
-        "EN-US",  # Literal['EN-US', 'EN-BR', 'EN_INDIA', 'EN-AU', 'EN-Default'] in 'Speaker' Dropdown component
-        text,  # str in 'Text to speak' Textbox component
-        1,  # float (numeric value between 0.1 and 10.0) in 'Speed' Slider component
-        "EN",  # Literal['EN', 'ES', 'FR', 'ZH', 'JP', 'KR'] in 'Language' Radio component
-        api_name="/synthesize"
+            text=sotry_text,
+            speaker="EN-US",
+            speed=1,
+            language="EN",
+            api_name="/synthesize"
     )
+    print(result)
 
 
 
@@ -69,4 +71,3 @@ if __name__ == "__main__":
     os.startfile(new_result)
 
     print(new_result, "This is the result ")
-
