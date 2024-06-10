@@ -1,0 +1,299 @@
+.element-zulqurnain-h {
+    background-color: #000000;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .element-zulqurnain-h .overlap-wrapper {
+    background-color: #000000;
+    height: 950px;
+    overflow: hidden;
+    width: 438.73px;
+  }
+  
+  .element-zulqurnain-h .overlap {
+    height: 950px;
+    left: -74px;
+    position: relative;
+    width: 670px;
+  }
+  
+  .element-zulqurnain-h .rectangle {
+    height: 950px;
+    left: 74px;
+    position: absolute;
+    top: 0;
+    width: 439px;
+  }
+  
+  .element-zulqurnain-h .div {
+    background: linear-gradient(180deg, rgba(2.53, 7.25, 23.38, 0) 0%, rgb(2.53, 7.25, 23.38) 100%);
+    height: 435px;
+    left: 74px;
+    position: absolute;
+    top: 515px;
+    width: 439px;
+  }
+  
+  .element-zulqurnain-h .group {
+    height: 211px;
+    left: 149px;
+    position: absolute;
+    top: 575px;
+    width: 297px;
+  }
+  
+  .element-zulqurnain-h .overlap-group {
+    height: 211px;
+    position: relative;
+    width: 289px;
+  }
+  
+  .element-zulqurnain-h .REFLECT-YOUR-CYCLE {
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
+    background-clip: text;
+    color: transparent;
+    font-family: "Outfit-Light", Helvetica;
+    font-size: 48px;
+    font-weight: 300;
+    left: 0;
+    letter-spacing: 14.4px;
+    line-height: 57.6px;
+    position: absolute;
+    text-align: center;
+    text-fill-color: transparent;
+    top: 0;
+  }
+  
+  .element-zulqurnain-h .text-wrapper {
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+    background-clip: text;
+    color: transparent;
+    font-family: "Outfit-Light", Helvetica;
+    font-size: 48px;
+    font-weight: 300;
+    left: 0;
+    letter-spacing: 14.4px;
+    line-height: normal;
+    position: absolute;
+    text-fill-color: transparent;
+    top: 35px;
+  }
+  
+  .element-zulqurnain-h .text-wrapper-2 {
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+    background-clip: text;
+    color: transparent;
+    font-family: "Outfit-Light", Helvetica;
+    font-size: 48px;
+    font-weight: 300;
+    left: 58px;
+    letter-spacing: 14.4px;
+    line-height: normal;
+    position: absolute;
+    text-fill-color: transparent;
+    top: 93px;
+  }
+  
+  .element-zulqurnain-h .text-wrapper-3 {
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
+    background-clip: text;
+    color: transparent;
+    font-family: "Outfit-Light", Helvetica;
+    font-size: 48px;
+    font-weight: 300;
+    left: 41px;
+    letter-spacing: 14.4px;
+    line-height: normal;
+    position: absolute;
+    text-fill-color: transparent;
+    top: 151px;
+  }
+  
+  .element-zulqurnain-h .overlap-group-wrapper {
+    height: 70px;
+    left: 168px;
+    position: absolute;
+    top: 821px;
+    width: 252px;
+  }
+  
+  .element-zulqurnain-h .overlap-2 {
+    background-color: #d7d3db;
+    border-radius: 584.98px;
+    height: 70px;
+    position: relative;
+    width: 250px;
+  }
+  
+  .element-zulqurnain-h .arrow-forward-wrapper {
+    background-color: #0f1a44;
+    border-radius: 584.98px;
+    height: 58px;
+    left: 186px;
+    position: absolute;
+    top: 6px;
+    width: 58px;
+  }
+  
+  .element-zulqurnain-h .arrow-forward {
+    height: 23px;
+    left: 18px;
+    position: absolute;
+    top: 17px;
+    width: 23px;
+  }
+  
+  .element-zulqurnain-h .get-started {
+    color: #0f1a44;
+    font-family: "Outfit-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    height: 25px;
+    left: 51px;
+    letter-spacing: -0.8px;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 23px;
+  }
+  
+  .element-zulqurnain-h .stars {
+    height: 435px;
+    left: 0;
+    position: absolute;
+    top: 90px;
+    width: 670px;
+  }
+  
+  .element-zulqurnain-h .overlap-3 {
+    height: 435px;
+    position: relative;
+  }
+  
+  .element-zulqurnain-h .div-wrapper {
+    height: 196px;
+    left: 0;
+    position: absolute;
+    top: 71px;
+    width: 521px;
+  }
+  
+  .element-zulqurnain-h .overlap-group-2 {
+    height: 196px;
+    left: 74px;
+    position: relative;
+    width: 439px;
+  }
+  
+  .element-zulqurnain-h .subtract {
+    height: 196px;
+    left: 251px;
+    position: absolute;
+    top: 0;
+    width: 187px;
+  }
+  
+  .element-zulqurnain-h .vector {
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 98px;
+    width: 323px;
+  }
+  
+  .element-zulqurnain-h .group-2 {
+    height: 196px;
+    left: 150px;
+    position: absolute;
+    top: 169px;
+    transform: rotate(-180deg);
+    width: 521px;
+  }
+  
+  .element-zulqurnain-h .overlap-4 {
+    height: 196px;
+    left: 158px;
+    position: relative;
+    width: 363px;
+  }
+  
+  .element-zulqurnain-h .img {
+    height: 196px;
+    left: 167px;
+    position: absolute;
+    top: 0;
+    transform: rotate(180deg);
+    width: 196px;
+  }
+  
+  .element-zulqurnain-h .vector-2 {
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 98px;
+    transform: rotate(180deg);
+    width: 239px;
+  }
+  
+  .element-zulqurnain-h .rectangle-2 {
+    border-color: #ffae9d;
+    border-left-style: solid;
+    border-left-width: 1.17px;
+    border-radius: 0px 0px 584.98px 584.98px;
+    border-right-style: solid;
+    border-right-width: 1.17px;
+    height: 367px;
+    left: 111px;
+    position: absolute;
+    top: 34px;
+    transform: rotate(90deg);
+    width: 435px;
+  }
+  
+  .element-zulqurnain-h .group-3 {
+    height: 389px;
+    left: 74px;
+    mix-blend-mode: lighten;
+    position: absolute;
+    top: 0;
+    width: 423px;
+  }
+  
+  .element-zulqurnain-h .group-4 {
+    height: 144px;
+    left: 107px;
+    mix-blend-mode: lighten;
+    position: absolute;
+    top: 403px;
+    width: 83px;
+  }
+  
+  .element-zulqurnain-h .group-5 {
+    height: 299px;
+    left: 336px;
+    mix-blend-mode: lighten;
+    position: absolute;
+    top: 170px;
+    width: 173px;
+  }
+  
+  .element-zulqurnain-h .group-6 {
+    height: 170px;
+    left: 396px;
+    mix-blend-mode: lighten;
+    position: absolute;
+    top: 0;
+    width: 117px;
+  }
+  
