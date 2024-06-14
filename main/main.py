@@ -1,9 +1,21 @@
+import os
+import sys
+import platform
 import requests
 from dotenv import load_dotenv
-from capture_save_and_post_img.capture_save_and_post_image import CameraHandler
 
+# Determine the base path to the globus_repo directory
+base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Add the appropriate path to PYTHONPATH based on the OS
+if platform.system() == 'Windows':
+    sys.path.append(f"{base_path}")
+else:
+    sys.path.append(f"{base_path}")
+
+from capture_save_and_post_img.capture_save_and_post_image import CameraHandler
 from gradio_client import Client
-import os
+
 
 # Load environment variables from .env file such as the server API
 load_dotenv()
@@ -53,8 +65,6 @@ if __name__ == "__main__":
             api_name="/synthesize"
     )
     print(result)
-
-
 
     parts = result.split("\\") 
 
