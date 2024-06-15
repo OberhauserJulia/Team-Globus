@@ -1,8 +1,14 @@
 import ddf.minim.*;
 import ddf.minim.analysis.*;
+import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpExchange;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Iterator;
-import processing.net.*;
 
 Minim minim;
 AudioPlayer player;
@@ -17,7 +23,7 @@ int g = 0;
 int b = 0;
 int picturecount = 0;
 TextUI textUI;
-Server myServer;
+HttpServer server;
 
 void setup() {
   size(800, 600, P2D);
@@ -27,14 +33,23 @@ void setup() {
   fft = new FFT(player.bufferSize(), player.sampleRate());
   bubbles = new ArrayList<Bubble>();
   textUI = new TextUI(0, 0, 0); // Initialisiere die TextUI mit den Startfarben
-  
-  // Setup server on port 5204
-  myServer = new Server(this, 5204);
+
+  // Setup HTTP server
+  try {
+    server = HttpServer.create(new InetSocketAddress("127.0.0.1", 5204), 0);
+    server.createContext("/setRGB", new RGBHandler());
+    server.createContext("/setBandsize", new BandsizeHandler());
+    server.setExecutor(null); // creates a default executor
+    server.start();
+    println("Server started on port 5204");
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
 }
 
 void draw() {
   background(0);
-  
+
   if (captureText && textUI != null) {
     textUI.display(50, 100);
   }
@@ -80,34 +95,6 @@ void draw() {
       }
     }
   }
-
-  // Check for incoming server messages
-  Client thisClient = myServer.available();
-  if (thisClient != null) {
-    String input = thisClient.readString();
-    if (input != null) {
-      handleRequest(input.trim());
-    }
-  }
-}
-
-void handleRequest(String input) {
-  // Expect input in the format "r=255&g=100&b=50"
-  String[] params = input.split("&");
-  for (String param : params) {
-    String[] keyValue = param.split("=");
-    if (keyValue.length == 2) {
-      String key = keyValue[0];
-      int value = Integer.parseInt(keyValue[1]);
-      if (key.equals("r")) {
-        r = value;
-      } else if (key.equals("g")) {
-        g = value;
-      } else if (key.equals("b")) {
-        b = value;
-      }
-    }
-  }
 }
 
 // Input Map:
@@ -150,5 +137,51 @@ void keyPressed() {
 void stop() {
   player.close();
   minim.stop();
+  server.stop(0);
   super.stop();
+}
+
+// HTTP Handler for setting RGB values
+class RGBHandler implements HttpHandler {
+  @Override
+  public void handle(HttpExchange t) throws IOException {
+    String query = t.getRequestURI().getQuery();
+    String[] params = query.split("&");
+    for (String param : params) {
+      String[] pair = param.split("=");
+      if (pair[0].equals("r")) {
+        r = Integer.parseInt(pair[1]);
+      } else if (pair[0].equals("g")) {
+        g = Integer.parseInt(pair[1]);
+      } else if (pair[0].equals("b")) {
+        b = Integer.parseInt(pair[1]);
+      }
+    }
+    String response = "RGB values set to - R: " + r + ", G: " + g + ", B: " + b;
+    t.sendResponseHeaders(200, response.length());
+    OutputStream os = t.getResponseBody();
+    os.write(response.getBytes());
+    os.close();
+  }
+}
+
+// HTTP Handler for setting bandsize
+class BandsizeHandler implements HttpHandler {
+  @Override
+  public void handle(HttpExchange t) throws IOException {
+    String query = t.getRequestURI().getQuery();
+    String[] params = query.split("&");
+    for (String param : params) {
+      String[] pair = param.split("=");
+      if (pair[0].equals("bandsize")) {
+        int newBandsize = Integer.parseInt(pair[1]);
+        bandsize = newBandsize;
+      }
+    }
+    String response = "Bandsize set to " + bandsize;
+    t.sendResponseHeaders(200, response.length());
+    OutputStream os = t.getResponseBody();
+    os.write(response.getBytes());
+    os.close();
+  }
 }
