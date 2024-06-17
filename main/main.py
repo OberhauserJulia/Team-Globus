@@ -53,18 +53,18 @@ if __name__ == "__main__":
     print(story_json)
 
     # Now you can access the 'response' field
-    sotry_text = str(story_json["response"])
-    print(sotry_text)
+    story_text = str(story_json["response"])
+    print(story_text)
 
     client = Client("mrfakename/MeloTTS")
     result = client.predict(
-            text=sotry_text,
+            text=story_text,
             speaker="EN-US",
             speed=1,
             language="EN",
             api_name="/synthesize"
     )
-    print(result)
+    print(f"The result: {result}")
 
     parts = result.split("\\") 
 
