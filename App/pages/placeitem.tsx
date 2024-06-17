@@ -1,79 +1,105 @@
-import react from 'react';
+// src/screens/PlaceItem.tsx
+
+import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import axios from 'axios';
+import { NavigationProp } from '@react-navigation/native';
+import { useItem } from '../context/ItemContext';
 
-export default function PlaceItem({ navigation }) {
-    return (
-        <View style={styles.container}>
-            <Image 
-                source={require('../images/decor2.png')} 
-                style={styles.image} 
-                resizeMode="contain"
-            />
-            <View style={styles.box}>
-                <View style={styles.group}>
-                    <View style={styles.overlapGroup}>
-                        <Text style={styles.reflectYourCycle}>
-                            Place any
-                            {'\n'}
-                            item inside
-                            {'\n'}
-                            the box
-                        </Text>
-                    </View>
-                </View>
-            </View>
-            <Button
-                mode="contained"
-                onPress={() => navigation.navigate('AnalyzingProgress')}
-                style={styles.button}
-                labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase',}}
-            >
-                Item Placed
-            </Button>
+interface PlaceItemProps {
+  navigation: NavigationProp<any>;
+}
+
+export default function PlaceItem({ navigation }: PlaceItemProps) {
+  const { item, setItem } = useItem();
+
+  const handlePress = async() => {
+      navigation.navigate('AnalyzingProgress');
+    axios.post<{ data: any }>('http://192.168.119.191:4000/api/placeitem')
+      .then((response: any) => {
+        console.log('Success:', response.data);
+        setItem(response.data.data);
+      })
+      .catch((error: Error) => {
+        console.error('Error:', error);
+        navigation.navigate('AnalyzingProgress');
+        setItem('Handbag');
+
+      });
+  }
+
+  return (
+    <View style={styles.container}>
+      <Image 
+        source={require('../images/decor2.png')} 
+        style={styles.image} 
+        resizeMode="contain"
+      />
+      <View style={styles.box}>
+        <View style={styles.group}>
+          <View style={styles.overlapGroup}>
+            <Text style={styles.reflectYourCycle}>
+              Place any
+              {'\n'}
+              item inside
+              {'\n'}
+              the box
+            </Text>
+          </View>
         </View>
-    );
+      </View>
+      <Button
+        mode="contained"
+        onPress={handlePress}
+        style={styles.button}
+        labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase',}}
+      >
+        Item Placed
+      </Button>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000',
-        alignItems: 'center',
-    },
-    image: {
-        width: '100%', 
-    },
-    box: {
-        height: 211,
-        width: 289,
-    },
-    group: {
-        position: 'absolute', 
-        bottom: '38%', // Position text 50% from the bottom of the image
-        height: 211,
-        width: 297,
-    },
-    overlapGroup: {
-        height: 211,
-        width: 289,
-    },
-    reflectYourCycle: {
-        color: '#fff',
-        fontFamily: 'Helvetica',
-        fontSize: 18,
-        letterSpacing: 14.4,
-        lineHeight: 57.6,
-        textAlign: 'center',
-        textTransform: 'uppercase',
-    },
-    button: {
-        position: 'absolute',
-        bottom: '8%', 
-        width: '60%',
-        height: 64,
-        backgroundColor: '#D7D3DB',
-        textAlign: 'center',
-        justifyContent: 'center',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#000',
+    alignItems: 'center',
+  },
+  image: {
+    width: '100%',
+  },
+  box: {
+    height: 211,
+    width: 289,
+  },
+  group: {
+    position: 'absolute', 
+    bottom: '38%', // Position text 50% from the bottom of the image
+    height: 211,
+    width: 297,
+  },
+  overlapGroup: {
+    height: 211,
+    width: 289,
+  },
+  reflectYourCycle: {
+    color: '#fff',
+    fontFamily: 'Helvetica',
+    fontSize: 18,
+    letterSpacing: 14.4,
+    lineHeight: 57.6,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+  },
+  button: {
+    position: 'absolute',
+    bottom: '8%', 
+    width: '60%',
+    height: 64,
+    backgroundColor: '#D7D3DB',
+    textAlign: 'center',
+    justifyContent: 'center',
+  },
 });
