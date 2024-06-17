@@ -16,11 +16,17 @@ from gradio_client import Client
 # Load environment variables from .env file such as the server API
 load_dotenv()
 
-preprompt = """Write a short story, with a maximum of 750 words, about the production cycle of a specific product. Dive into the world of raw material extraction and learn about the challenges and impacts on the environment and the working conditions of the laborers, as well as the resources required and where they can be found.
-Moving on to the manufacturing of the product, explore the differences between factories in various regions and how the production conditions affect both people and the environment and please tell more about the conditions under that the workers go through and how it affects them mentally if there is something to tell about it. Also, delve into the countries where this product is manufactured and discuss the working conditions.
-During the transportation of the product, discover how they are transported and explore the environmental impacts, including CO2 emissions and other ecological damages.
-Lastly, in the end cycle, investigate the possibilities of disposal or recycling of the product. Learn about how some parts are incinerated or deposited, while others are recycled and transformed into new products. Conclude the story by reiterating that this is the complete cycle.
-Please ensure smooth transitions and engage the consumer, incorporating them into the story to some extent."""
+preprompt = """Write a short story, with a maximum of 750 words, about the production cycle of a specific product.
+Start with the raw material extraction: discuss where the resources come from, which specific resources are used, and the working conditions of the laborers, including any environmental impacts.
+When transitioning to the manufacturing part, begin with this sentence: "Once the raw materials have been extracted, they are transported to factories around the world for processing and assembly."
+In the manufacturing part, explore the environmental burdens, working conditions, and process methods. Highlight differences between factories in various regions and how production conditions affect both people and the environment.
+When transitioning to the transportation part, begin with this sentence: "With the product assembled, it now begins its journey to consumers across the globe."
+In the transportation part, describe the transportation methods commonly used and their environmental impacts, including CO2 emissions and other ecological damages.
+When transitioning to the end usage part, begin with this sentence: "After the product reaches the hands of consumers, its lifecycle continues through daily use until it reaches the end of its useful life."
+In the end usage part, investigate the product’s lifespan, disposal, and recycling possibilities. Explain how some parts are incinerated or deposited, while others are recycled and transformed into new products. Discuss the environmental burden of disposal methods.
+Please ensure smooth transitions and engage the consumer, incorporating them into the story to some extent.
+
+"""
 
 if __name__ == "__main__":
     # Create a CameraHandler object
@@ -28,8 +34,7 @@ if __name__ == "__main__":
     # Capture an image and send to server for processing
     response = camera_handler.capture_image()
     # Display the server response
-    print("Server response:")
-    print(response)
+    print(f"Server response (image recognition):\n{response}\n")
 
     prompt = f"{preprompt} /n this is the product:{str(response['text'])} "
 
@@ -44,21 +49,21 @@ if __name__ == "__main__":
 
     # Extract the JSON from the response
     story_json = story.json()
-    print(story_json)
+    print(f"Story as JSON:\n{story_json}\n")
 
     # Now you can access the 'response' field
     story_text = str(story_json["response"])
-    print(story_text)
+    print(f"Story as text:\n{story_text}\n")
 
     client = Client("mrfakename/MeloTTS")
     result = client.predict(
             text=story_text,
-            speaker="EN-US",
-            speed=1,
+            speaker="EN-BR",
+            speed=0.8,
             language="EN",
             api_name="/synthesize"
     )
-    print(result)
+    print(f"\nAudio API response:\n{result}\n")
 
     # Modify the path to save as audio.wav in the processing directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -66,7 +71,7 @@ if __name__ == "__main__":
     os.makedirs(processing_dir, exist_ok=True)  # Ensure the directory exists
 
     # Construct the full new path
-    new_result = os.path.join(processing_dir, "song.wav")
+    new_result = os.path.join(processing_dir, "story.wav")
 
     # Rename the file to move it to the new directory
     os.rename(result, new_result)
@@ -78,4 +83,4 @@ if __name__ == "__main__":
         os.system(f'open "{new_result}"')
 
     # Print the path of the saved audio file
-    print(new_result, "This is the result")
+    print("The audio file was saved to: \n", new_result)
