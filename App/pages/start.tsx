@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Button } from 'react-native-paper';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export default function Start({ navigation }) {
 

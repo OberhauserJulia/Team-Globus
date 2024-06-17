@@ -1,4 +1,4 @@
-import { View,Image, Text, StyleSheet } from 'react-native';
+import {Image, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { ImageBackground } from 'react-native';
 import { Button } from 'react-native-paper';

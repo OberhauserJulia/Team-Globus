@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import { ActivityIndicator, Button } from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 export default function AnalyzingProgress({ navigation }) {

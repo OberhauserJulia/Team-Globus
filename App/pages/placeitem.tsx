@@ -1,5 +1,5 @@
 import react from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
 
 export default function PlaceItem({ navigation }) {

@@ -1,5 +1,4 @@
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
-import { Button } from 'react-native-paper';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
 
 
