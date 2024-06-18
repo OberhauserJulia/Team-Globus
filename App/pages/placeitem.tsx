@@ -6,6 +6,7 @@ import { Button } from 'react-native-paper';
 import axios from 'axios';
 import { NavigationProp } from '@react-navigation/native';
 import { useItem } from '../context/ItemContext';
+import { useEffect } from 'react';
 
 interface PlaceItemProps {
   navigation: NavigationProp<any>;
@@ -14,19 +15,10 @@ interface PlaceItemProps {
 export default function PlaceItem({ navigation }: PlaceItemProps) {
   const { item, setItem } = useItem();
 
+
   const handlePress = async() => {
       navigation.navigate('AnalyzingProgress');
-    axios.post<{ data: any }>('http://192.168.119.191:4000/api/placeitem')
-      .then((response: any) => {
-        console.log('Success:', response.data);
-        setItem(response.data.data);
-      })
-      .catch((error: Error) => {
-        console.error('Error:', error);
-        navigation.navigate('AnalyzingProgress');
-        setItem('Handbag');
-
-      });
+    
   }
 
   return (

@@ -1,15 +1,23 @@
 import React, { useEffect } from "react";
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-
+import axios from "axios";
+import { useItem } from "../context/ItemContext";
 
 export default function AnalyzingProgress({ navigation }) {
-    
+    const { item, setItem } = useItem();
+
     useEffect(() => {
-        const timer = setTimeout(() => {
-            navigation.navigate('ItemAnalyzed');
-        }, 10000);
-        return () => clearTimeout(timer);
+        axios.post<{ data: any }>('http://192.168.119.191:4000/api/placeitem')
+            .then((response: any) => {
+                console.log('Success:', response.data);
+                setItem(response.data.data);
+                navigation.navigate('ItemAnalyzed');
+            })
+            .catch((error: Error) => {
+                console.error('Error:', error);
+                navigation.navigate('AnalyzingProgress');
+            });
     }, [navigation]);
 
     return (
@@ -25,14 +33,13 @@ export default function AnalyzingProgress({ navigation }) {
                 analyzed
             </Text>
 
-            <ActivityIndicator animating={true} color={'#D7D3DB'} size={80}/>
+            <ActivityIndicator animating={true} color={'#D7D3DB'} size={80} />
 
             <Text style={styles.subtext}>
                 please wait
                 {'\n'}
                 a moment
             </Text>
-
         </ImageBackground>
     );
 }
