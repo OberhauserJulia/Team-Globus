@@ -35,7 +35,7 @@ export default function ItemAnalyzed({ navigation }: ItemAnalyzedProps) {
     try {
       if (!rightObject) {
         navigation.navigate('EnterRoom');
-        axios.post(`http://192.168.119.191:4000/api/itemanalyzed/${item}`);
+        axios.post(`http://192.168.119.190:4000/api/itemanalyzed/${item}`);
       } else {
         setButtonText("Try again");
         showModal();

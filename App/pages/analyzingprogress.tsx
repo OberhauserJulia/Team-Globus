@@ -3,12 +3,20 @@ import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import axios from "axios";
 import { useItem } from "../context/ItemContext";
+import StopinstallationButton from "../compontens/StopinstallationButton";
+import { NavigationProp } from '@react-navigation/native';
 
-export default function AnalyzingProgress({ navigation }) {
+
+
+interface ItemAnalyzedProps {
+    navigation: NavigationProp<any>;
+  }
+
+export default function AnalyzingProgress({ navigation }: { navigation: NavigationProp<any> }) {
     const { item, setItem } = useItem();
 
     useEffect(() => {
-        axios.post<{ data: any }>('http://192.168.119.191:4000/api/placeitem')
+        axios.post<{ data: any }>('http://192.168.119.190:4000/api/placeitem')
             .then((response: any) => {
                 console.log('Success:', response.data);
                 setItem(response.data.data);
@@ -21,6 +29,7 @@ export default function AnalyzingProgress({ navigation }) {
     }, [navigation]);
 
     return (
+        
         <ImageBackground 
             source={require('../images/decor3.png')} 
             style={styles.container}
@@ -41,6 +50,7 @@ export default function AnalyzingProgress({ navigation }) {
                 a moment
             </Text>
         </ImageBackground>
+        
     );
 }
 

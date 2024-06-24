@@ -2,10 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import { Button, Modal, Portal, PaperProvider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '@react-navigation/native'; 
 
-export default function CurrentlyUsed() {
+interface ItemAnalyzedProps {
+    navigation: NavigationProp<any>;
+  }
+
+
+
+export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
     const [visible, setVisible] = React.useState(false);
-    const navigation = useNavigation();
 
     const goToStartPage = () => {
         navigation.navigate('Start');

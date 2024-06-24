@@ -1,8 +1,13 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
+import StopinstallationButton from '../compontens/StopinstallationButton';
+import { NavigationProp } from '@react-navigation/native';
 
+interface ItemAnalyzedProps {
+    navigation: NavigationProp<any>;
+  }
 
-export default function EnterRoom({ navigation }) {
+export default function EnterRoom({ navigation } : ItemAnalyzedProps ) {
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -14,6 +19,7 @@ export default function EnterRoom({ navigation }) {
     return (
 
         <View style={styles.container}>
+            <StopinstallationButton/>  
             <Image 
                 source={require('../images/decor5.png')} 
                 style={styles.image} 

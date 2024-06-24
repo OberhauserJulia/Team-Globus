@@ -7,6 +7,7 @@ import axios from 'axios';
 import { NavigationProp } from '@react-navigation/native';
 import { useItem } from '../context/ItemContext';
 import { useEffect } from 'react';
+import StopinstallationButton from '../compontens/StopinstallationButton';
 
 interface PlaceItemProps {
   navigation: NavigationProp<any>;
@@ -23,6 +24,7 @@ export default function PlaceItem({ navigation }: PlaceItemProps) {
 
   return (
     <View style={styles.container}>
+      <StopinstallationButton />
       <Image 
         source={require('../images/decor2.png')} 
         style={styles.image} 

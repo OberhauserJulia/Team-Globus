@@ -1,8 +1,16 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
+import { NavigationProp } from '@react-navigation/native'; 
 
-export default function Start({ navigation }) {
+interface ItemAnalyzedProps {
+    navigation: NavigationProp<any>;
+  }
+
+
+
+
+export default function Start({ navigation } : ItemAnalyzedProps ) {
 
     return (
         <View style={styles.container}>

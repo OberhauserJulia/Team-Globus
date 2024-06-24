@@ -17,6 +17,22 @@ const Stack = createStackNavigator();
 export default function App() {
   const [item, setItem] = useState<string>('');
 
+
+  
+
+type RootStackParamList = {
+  Start: undefined ;
+  FirstScreen: undefined; 
+  AnalyzingProgress: undefined;
+  PlaceItem: undefined;
+  ItemAnalyzed: undefined;
+  CurrentlyUsed: undefined;
+  EnterRoom: undefined;
+  
+  // andere Routen hier hinzufügen
+};
+const Stack = createStackNavigator<RootStackParamList>();
+
   return (
     <ItemProvider>
       <NavigationContainer>
