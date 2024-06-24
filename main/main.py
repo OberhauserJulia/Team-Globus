@@ -5,7 +5,7 @@ import requests
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-
+import glob 
 app = FastAPI()
 
 class ItemResponse(BaseModel):
@@ -69,16 +69,92 @@ async def item_analyzed(item: str):
     story_text = str(story_json["response"])
     print(f"Story as text:\n{story_text}\n")
 
-    client = Client("mrfakename/MeloTTS")
-    result = client.predict(
-            text=story_text,
-            speaker="EN-BR",
-            speed=0.8,
-            language="EN",
-            api_name="/synthesize"
-    )
-    print(f"\nAudio API response:\n{result}\n")
+    split_text =devide_text(story_text)
+    print(len(split_text) )
+    audioarray = [] 
+    delete_existing() 
+    for i in range(len(split_text)): 
+        print("Loading New Text: ", "...") 
 
+        client = Client("mrfakename/MeloTTS")
+        result = client.predict(
+                text=split_text[i],
+                speaker="EN-BR",
+                speed=0.8,
+                language="EN",
+                api_name="/synthesize"
+        )
+        print(f"\nAudio API response:\n{result}\n")
+
+        audioarray.append(result)
+        save_audio(result, i)   
+    print("Audio Array: ", audioarray)
+    return {"response" : "Audio is safed completly"}
+
+
+    # Save the audio file and return the path
+    # new_result = delte_and_save_audio(result) 
+
+    # Open the new file
+    #open_audio_file(new_result)
+
+    # Print the path of the saved audio file
+    # print("The audio file was saved to: \n", new_result)
+    # return("The audio file was saved to: \n", new_result)
+
+def devide_text(text : str ):
+    new_text = text.strip().split('\n\n')
+
+
+    
+    return new_text
+
+def open_audio_file(new_result : str ) :
+    
+    # Open the new file
+    if platform.system() == 'Windows':
+        os.startfile(new_result)
+    else:
+        os.system(f'open "{new_result}"')
+
+    # Print the path of the saved audio file
+    print("The audio file was saved to: \n", new_result)
+
+def delete_existing():
+    # Modify the path to save as audio.wav in the processing directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    processing_dir = os.path.join(script_dir, "../processing")
+    os.makedirs(processing_dir, exist_ok=True)  # Ensure the directory exists
+    
+    # Find all .wav files in the processing directory
+    wav_files = glob.glob(os.path.join(processing_dir, "*.wav"))
+    
+    # Delete each .wav file
+    for wav_file in wav_files:
+        os.remove(wav_file)
+        print(f"Deleted: {wav_file}")
+
+
+def save_audio(result : str, number : int ) : 
+     # Modify the path to save as audio.wav in the processing directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    processing_dir = os.path.join(script_dir, "../processing")
+    os.makedirs(processing_dir, exist_ok=True)  # Ensure the directory exists
+
+    # Construct the full new path
+    new_result = os.path.join(processing_dir, f"story{number}.wav")
+
+    # Delete the existing file if it exists
+    if os.path.exists(new_result):
+        os.remove(new_result)
+
+    # Rename the file to move it to the new directory
+    os.rename(result, new_result)
+
+    return new_result
+
+
+def delte_and_save_audio(result : str ) : 
     # Modify the path to save as audio.wav in the processing directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
     processing_dir = os.path.join(script_dir, "../processing")
@@ -94,15 +170,26 @@ async def item_analyzed(item: str):
     # Rename the file to move it to the new directory
     os.rename(result, new_result)
 
-    # Open the new file
-    if platform.system() == 'Windows':
-        os.startfile(new_result)
-    else:
-        os.system(f'open "{new_result}"')
+    return new_result
 
-    # Print the path of the saved audio file
-    print("The audio file was saved to: \n", new_result)
-    return("The audio file was saved to: \n", new_result)
+    
+
+
+
+
+
+@app.delete("/stopProcess") 
+def stopprocess():
+    # Kill all backend processes including the server itself
+    os.system("pkill -f 'uvicorn'")
+    os.system("pkill -f 'capture_save_and_post_image.py'")
+
+    #Hier noch Befehl um Audio zu stoppen 
+    
+    # Restart the server
+    os.system("nohup uvicorn main:app --host 0.0.0.0 --port 4000 &")
+    
+    return "Backend processes stopped and server restarted"
 
 if __name__ == "__main__":
     import uvicorn
