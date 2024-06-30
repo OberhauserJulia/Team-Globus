@@ -19,7 +19,7 @@ export default function StopinstallationButton() {
 
     const goToStartPage = () => {
         navigation.navigate('Start');
-        axios.delete(`http://192.168.119.190:4000/stopProcess`)
+        axios.delete(`http://${process.env.IP_ADRESS}:4000/stopProcess`)
             .then(response => {
                 // Erfolgreiche Antwort vom Server
                 console.log('Server response:', response.data);

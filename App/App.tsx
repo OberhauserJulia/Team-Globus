@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ItemProvider } from './context/ItemContext';
 
 import Start from './pages/start';
@@ -10,12 +10,16 @@ import PlaceItem from './pages/placeitem';
 import AnalyzingProgress from './pages/analyzingprogress';
 import ItemAnalyzed from './pages/itemanalyzed';
 import CurrentlyUsed from './pages/currentlyused';
-import EnterRoom from './pages/enterroom';
+import EnterRoom from './pages/enterroom'
 
 const Stack = createStackNavigator();
 
+
+
+
 export default function App() {
   const [item, setItem] = useState<string>('');
+
 
 
   
@@ -31,6 +35,14 @@ type RootStackParamList = {
   
   // andere Routen hier hinzufügen
 };
+
+
+useEffect(() => {
+  console.log("App started");
+  console.log("Expo Constants: ", process.env.IP_ADRESS);
+}, []);
+
+
 const Stack = createStackNavigator<RootStackParamList>();
 
   return (

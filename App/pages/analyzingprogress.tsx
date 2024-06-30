@@ -16,7 +16,7 @@ export default function AnalyzingProgress({ navigation }: { navigation: Navigati
     const { item, setItem } = useItem();
 
     useEffect(() => {
-        axios.post<{ data: any }>('http://192.168.119.190:4000/api/placeitem')
+        axios.post<{ data: any }>(`http://${process.env.IP_ADRESS}:4000/api/placeitem`)
             .then((response: any) => {
                 console.log('Success:', response.data);
                 setItem(response.data.data);
