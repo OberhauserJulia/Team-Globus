@@ -123,7 +123,7 @@ def open_audio_file(new_result : str ) :
 def delete_existing():
     # Modify the path to save as audio.wav in the processing directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    processing_dir = os.path.join(script_dir, "../processing")
+    processing_dir = os.path.join(script_dir, "../processing/data")
     os.makedirs(processing_dir, exist_ok=True)  # Ensure the directory exists
     
     # Find all .wav files in the processing directory
@@ -138,7 +138,7 @@ def delete_existing():
 def save_audio(result : str, number : int ) : 
      # Modify the path to save as audio.wav in the processing directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    processing_dir = os.path.join(script_dir, "../processing")
+    processing_dir = os.path.join(script_dir, "../processing/data")
     os.makedirs(processing_dir, exist_ok=True)  # Ensure the directory exists
 
     # Construct the full new path
