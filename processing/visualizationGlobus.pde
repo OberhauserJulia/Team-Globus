@@ -5,7 +5,7 @@ Particle[] baseParticles;
 Particle[] specialParticles;
 int storyCounter = 0;
 int totalStories = 0;
-int noOfPoints = 4000; // Number of particles
+int noOfPoints = 6000; // Number of particles
 color col;
 
 void setup() {
@@ -114,11 +114,11 @@ void countWavFiles() {
 
   if (listOfFiles != null) { // Ensure listOfFiles is not null
     for (File file : listOfFiles) {
-      if (file.isFile() && file.getName().endsWith(".wav")) {
+      if (file.isFile() && file.getName().toLowerCase().endsWith(".wav")) {
         count++;
       }
 
-      if (storyCounter > 0 && file.getName().equals("story0.wav")) {
+      if (storyCounter > 0 && file.getName().equalsIgnoreCase("story0.wav")) {
         println("Found story0.wav");
         storyCounter = 0;
       }
@@ -144,7 +144,10 @@ void playNextStory() {
 
   // Delete the file after playing
   File playedFile = new File(sketchPath(filePath));
-  if (playedFile.exists()) {
-    playedFile.delete();
+  if (playedFile.exists() && playedFile.delete()) {
+    println("Deleted file: " + filePath);
+  } else {
+    println("Failed to delete file: " + filePath);
   }
 }
+  
