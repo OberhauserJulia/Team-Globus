@@ -15,6 +15,8 @@ export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
 
     const goToStartPage = () => {
         navigation.navigate('Start');
+        // setSocketState(false); // stop the show and the audio by changing the socket 
+        // setSocketState(true);  // set the socket state back to true to tell processing to be ready for the next Story
     };
 
     const showModal = () => setVisible(true);
