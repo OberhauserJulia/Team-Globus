@@ -18,22 +18,31 @@ export default function StopinstallationButton() {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     const goToStartPage = () => {
+        console.log('Home button pressed'); 
         navigation.navigate('Start');
+        console.log('Navigating to Start page...');
         axios.delete(`http://${process.env.IP_ADRESS}:4000/stopProcess`)
             .then(response => {
-                // Erfolgreiche Antwort vom Server
-                console.log('Server response:', response.data);
+                console.log('Server response:', response.data); // Erfolgreiche Antwort vom Server
                 hideModal();
-                // Hier können Sie weitere Aktionen basierend auf der Antwort durchführen
+                console.log('Modal hidden after server response.');
+                // Weitere Aktionen basierend auf der Antwort durchführen
             })
             .catch(error => {
-                // Fehlerbehandlung
-                console.error('There was an error stopping the process:', error);
-                // Hier können Sie weitere Fehlerbehandlungen durchführen
+                console.error('There was an error stopping the process:', error); // Fehlerbehandlung
+                // Weitere Fehlerbehandlungen durchführen
             });
     };
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
+
+    const showModal = () => {
+        console.log('Show modal triggered');
+        setVisible(true);
+    };
+
+    const hideModal = () => {
+        console.log('Hide modal triggered');
+        setVisible(false);
+    };
 
     const containerStyle: ViewStyle = {
         backgroundColor: 'black',
