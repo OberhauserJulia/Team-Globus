@@ -13,11 +13,16 @@ type RootStackParamList = {
   // andere Routen hier hinzufügen
 };
 
-export default function StopinstallationButton() { 
+interface ItemAnalyzedProps {
+    setScreen: (setScreen : boolean) => void; 
+} 
+
+export default function StopinstallationButton({setScreen}: ItemAnalyzedProps) { 
     const [visible, setVisible] = useState(false);
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     const goToStartPage = () => {
+        setScreen(true)
         navigation.navigate('Start');
         axios.delete(`http://${process.env.IP_ADRESS}:4000/stopProcess`)
             .then(response => {

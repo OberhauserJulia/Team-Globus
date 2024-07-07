@@ -15,6 +15,7 @@ interface PlaceItemProps {
 
 export default function PlaceItem({ navigation }: PlaceItemProps) {
   const { item, setItem } = useItem();
+  const [changeScreen, setChangeScreen] = React.useState(false);
 
 
   const handlePress = async() => {
@@ -24,7 +25,7 @@ export default function PlaceItem({ navigation }: PlaceItemProps) {
 
   return (
     <View style={styles.container}>
-      <StopinstallationButton />
+      <StopinstallationButton setScreen={setChangeScreen} />
       <Image 
         source={require('../images/decor2.png')} 
         style={styles.image} 

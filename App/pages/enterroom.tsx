@@ -8,18 +8,23 @@ interface ItemAnalyzedProps {
   }
 
 export default function EnterRoom({ navigation } : ItemAnalyzedProps ) {
+    const [changeScreen, setChangeScreen] = React.useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigation.navigate('CurrentlyUsed');
+            if (changeScreen === false) {
+                navigation.navigate('CurrentlyUsed');
+            }
         }, 30000);
         return () => clearTimeout(timer);
     }, [navigation]);
 
+
+
     return (
 
         <View style={styles.container}>
-            <StopinstallationButton/>  
+            <StopinstallationButton setScreen={setChangeScreen}/>  
             <Image 
                 source={require('../images/decor5.png')} 
                 style={styles.image} 

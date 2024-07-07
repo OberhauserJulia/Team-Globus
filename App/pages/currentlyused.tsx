@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from 'react
 import { Button, Modal, Portal, PaperProvider } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '@react-navigation/native'; 
+import axios from 'axios';
 
 interface ItemAnalyzedProps {
     navigation: NavigationProp<any>;
@@ -13,9 +14,31 @@ interface ItemAnalyzedProps {
 export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
     const [visible, setVisible] = React.useState(false);
 
+    
+
     const goToStartPage = () => {
-        navigation.navigate('Start');
+        try {
+            axios.delete(`http://${process.env.IP_ADRESS}:4000/stopProcess`)
+                .then(response => {
+                    // Erfolgreiche Antwort vom Server
+                    console.log('Server response:', response.data);
+                    hideModal();
+                    // Hier können Sie weitere Aktionen basierend auf der Antwort durchführen
+                })
+                .catch(error => {
+                    // Fehlerbehandlung
+                    console.error('There was an error stopping the process:', error);
+                    // Hier können Sie weitere Fehlerbehandlungen durchführen
+                });
+        } catch (error) {
+            // Fehlerbehandlung
+            console.error('There was an error stopping the process:', error);
+        } finally { 
+            navigation.navigate('Start');
+        } 
+
     };
+    
 
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
