@@ -79,7 +79,7 @@ async def item_analyzed(item: str):
     print(f"Text divided into {len(split_text)} parts\n")
 
     audioarray = [] 
-    delete_existing() 
+    #delete_existing() 
     for i in range(len(split_text)): 
         print(f"Loading New Text part {i}: {split_text[i]}\n")
 
