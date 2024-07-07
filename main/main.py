@@ -27,30 +27,35 @@ prompt = ""
 
 # Determine the base path to the globus_repo directory
 base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(f"Base path determined: {base_path}\n")
 
 # Add the appropriate path to PYTHONPATH based on the OS
 sys.path.append(base_path)
+print(f"Added {base_path} to PYTHONPATH\n")
 
 from capture_save_and_post_img.capture_save_and_post_image import CameraHandler
 from gradio_client import Client
 
 # Load environment variables from .env file such as the server API
 load_dotenv()
+print("Environment variables loaded from .env file\n")
 
 @app.post("/api/placeitem", response_model=ItemResponse)
 async def place_item():
+    print("Endpoint /api/placeitem called\n")
     # Create a CameraHandler object
     camera_handler = CameraHandler()
+    print("CameraHandler object created\n")
     # Capture an image and send to server for processing
     response = camera_handler.capture_image()
-    # Display the server response
-    print(f"Server response (image recognition):\n{response}\n")
-    print(response)
+    print(f"Server response (image recognition): {response}\n")
     return {"data": response["text"]}
 
 @app.post("/api/itemanalyzed/{item}", response_model=ItemResponse)
 async def item_analyzed(item: str):
+    print(f"Endpoint /api/itemanalyzed/{item} called\n")
     prompt = f"{preprompt} /n this is the product: {item}"
+    print(f"Prompt created: {prompt}\n")
 
     url = "https://api.asgard.u7s.de/api/generate"
     data = {
@@ -60,21 +65,23 @@ async def item_analyzed(item: str):
     }
     
     story = requests.post(url, json=data)
+    print("Request to story generation API sent\n")
 
     # Extract the JSON from the response
     story_json = story.json()
-    print(f"Story as JSON:\n{story_json}\n")
+    print(f"Story as JSON: {story_json}\n")
 
     # Now you can access the 'response' field
     story_text = str(story_json["response"])
-    print(f"Story as text:\n{story_text}\n")
+    print(f"Story as text: {story_text}\n")
 
-    split_text =devide_text(story_text)
-    print(len(split_text) )
+    split_text = devide_text(story_text)
+    print(f"Text divided into {len(split_text)} parts\n")
+
     audioarray = [] 
     delete_existing() 
     for i in range(len(split_text)): 
-        print("Loading New Text: ", "...") 
+        print(f"Loading New Text part {i}: {split_text[i]}\n")
 
         client = Client("mrfakename/MeloTTS")
         result = client.predict(
@@ -84,113 +91,88 @@ async def item_analyzed(item: str):
                 language="EN",
                 api_name="/synthesize"
         )
-        print(f"\nAudio API response:\n{result}\n")
+        print(f"Audio API response for part {i}: {result}\n")
 
         audioarray.append(result)
         save_audio(result, i)   
-    print("Audio Array: ", audioarray)
-    return {"response" : "Audio is safed completly"}
+    print("Audio Array: " + audioarray + "\n")
+    return {"response": "Audio is saved completely\n"}
 
-
-    # Save the audio file and return the path
-    # new_result = delte_and_save_audio(result) 
-
-    # Open the new file
-    #open_audio_file(new_result)
-
-    # Print the path of the saved audio file
-    # print("The audio file was saved to: \n", new_result)
-    # return("The audio file was saved to: \n", new_result)
-
-def devide_text(text : str ):
+def devide_text(text: str):
     new_text = text.strip().split('\n\n')
-
-
-    
+    print("Text divided into paragraphs\n")
     return new_text
 
-def open_audio_file(new_result : str ) :
-    
-    # Open the new file
+def open_audio_file(new_result: str):
+    print(f"Opening audio file: {new_result}\n")
     if platform.system() == 'Windows':
         os.startfile(new_result)
     else:
         os.system(f'open "{new_result}"')
-
-    # Print the path of the saved audio file
-    print("The audio file was saved to: \n", new_result)
+    print("Audio file opened\n")
 
 def delete_existing():
-    # Modify the path to save as audio.wav in the processing directory
+    print("Deleting existing audio files\n")
     script_dir = os.path.dirname(os.path.abspath(__file__))
     processing_dir = os.path.join(script_dir, "../processing/data")
-    os.makedirs(processing_dir, exist_ok=True)  # Ensure the directory exists
+    os.makedirs(processing_dir, exist_ok=True)
     
-    # Find all .wav files in the processing directory
     wav_files = glob.glob(os.path.join(processing_dir, "*.wav"))
     
-    # Delete each .wav file
     for wav_file in wav_files:
         os.remove(wav_file)
         print(f"Deleted: {wav_file}")
 
-
-def save_audio(result : str, number : int ) : 
-     # Modify the path to save as audio.wav in the processing directory
+def save_audio(result: str, number: int):
+    print(f"Saving audio file part {number}\n")
     script_dir = os.path.dirname(os.path.abspath(__file__))
     processing_dir = os.path.join(script_dir, "../processing/data")
-    os.makedirs(processing_dir, exist_ok=True)  # Ensure the directory exists
+    os.makedirs(processing_dir, exist_ok=True)
 
-    # Construct the full new path
     new_result = os.path.join(processing_dir, f"story{number}.wav")
 
-    # Delete the existing file if it exists
     if os.path.exists(new_result):
         os.remove(new_result)
 
-    # Rename the file to move it to the new directory
     os.rename(result, new_result)
+    print(f"Saved audio part {number} as: {new_result}\n")
 
     return new_result
 
-
-def delte_and_save_audio(result : str ) : 
-    # Modify the path to save as audio.wav in the processing directory
+def delte_and_save_audio(result: str):
+    print("Saving audio file\n")
     script_dir = os.path.dirname(os.path.abspath(__file__))
     processing_dir = os.path.join(script_dir, "../processing")
-    os.makedirs(processing_dir, exist_ok=True)  # Ensure the directory exists
+    os.makedirs(processing_dir, exist_ok=True)
 
-    # Construct the full new path
     new_result = os.path.join(processing_dir, "story.wav")
 
-    # Delete the existing file if it exists
     if os.path.exists(new_result):
         os.remove(new_result)
 
-    # Rename the file to move it to the new directory
     os.rename(result, new_result)
+    print(f"Audio file saved as: {new_result}\n")
 
     return new_result
-
-    
-
-
-
-
 
 @app.delete("/stopProcess") 
 def stopprocess():
+    print("Endpoint /stopProcess called\n")
     # Kill all backend processes including the server itself
     os.system("pkill -f 'uvicorn'")
     os.system("pkill -f 'capture_save_and_post_image.py'")
+    print("Killed all backend processes\n")
 
-    #Hier noch Befehl um Audio zu stoppen 
+    # Hier noch Befehl um Audio zu stoppen 
     
     # Restart the server
     os.system("nohup uvicorn main:app --host 0.0.0.0 --port 4000 &")
+    print("Server restarted\n")
     
     return "Backend processes stopped and server restarted"
 
 if __name__ == "__main__":
+    print("Starting server\n")
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=4000)
+    print("Server started\n")
