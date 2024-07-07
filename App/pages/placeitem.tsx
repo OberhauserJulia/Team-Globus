@@ -1,5 +1,3 @@
-// src/screens/PlaceItem.tsx
-
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -16,11 +14,14 @@ interface PlaceItemProps {
 export default function PlaceItem({ navigation }: PlaceItemProps) {
   const { item, setItem } = useItem();
 
+  const handlePress = async () => {
+    console.log('Item Placed button pressed\n');
+    navigation.navigate('AnalyzingProgress');
+  };
 
-  const handlePress = async() => {
-      navigation.navigate('AnalyzingProgress');
-    
-  }
+  useEffect(() => {
+    console.log('PlaceItem screen loaded\n');
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -47,7 +48,7 @@ export default function PlaceItem({ navigation }: PlaceItemProps) {
         mode="contained"
         onPress={handlePress}
         style={styles.button}
-        labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase',}}
+        labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase' }}
       >
         Item Placed
       </Button>
