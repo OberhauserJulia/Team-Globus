@@ -8,8 +8,13 @@ int totalStories = 0;
 int noOfPoints = 6000; // Number of particles
 color col;
 
+
 void setup() {
-  size(800, 600, P2D);
+  // Initialize the SocketListener with a specific port, for example, 12345
+  socketListener = new SocketListener(56789);
+  // Start the socket listener in a new thread
+  socketListener.start();
+  size(1280, 1080, P2D);
   showSetup();
   countWavFiles();
 }
@@ -74,9 +79,25 @@ int getColorBasedOnStoryCounter(int counter) {
 }
 
 void showManager(){
+  // Socketsays lässt sich mit einem PythonSkript überschreiben so können wir das script stoppen 
+  if (socketListener.socketSays == false){
+    
+    println("Stopping the Audio"); 
+    if (extractor != null) {
+      extractor.stopAudio(); // Stop the audio playback if any is played
+    }
+    println("Switching to baseShow");
+    baseShow();
+    println("Deleting all Files");
+    deleteAllFilesInFolder("data");
+    println("Reseting StoryCounter");
+    storyCounter = 0;
+  }
   if (extractor == null || !extractor.player.isPlaying()) {
+    println("Socket says ", socketListener.socketSays);
     baseShow();
   } else {
+    println("Socket says ", socketListener.socketSays);
     specialShow();
   }
 }
@@ -127,6 +148,24 @@ void countWavFiles() {
 
   totalStories = count;
   println("Counted files: " + totalStories);
+}
+
+// Method to delete all files inside a folder
+void deleteAllFilesInFolder(String folderPath) {
+  File folder = new File(sketchPath(folderPath));
+  File[] files = folder.listFiles();
+  
+  if (files != null) { // Ensure files is not null
+    for (File file : files) {
+      if (file.isFile()) {
+        if (file.delete()) {
+          println("Deleted file: " + file.getName());
+        } else {
+          println("Failed to delete file: " + file.getName());
+        }
+      }
+    }
+  }
 }
 
 void playNextStory() {

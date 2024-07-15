@@ -54,4 +54,11 @@ class WavDataExtractor {
     player.close();
     minim.stop();
   }
+
+  // Method to stop audio playback
+  void stopAudio() {
+    if (player.isPlaying()) {
+      player.pause();
+    }
+  }
 }
