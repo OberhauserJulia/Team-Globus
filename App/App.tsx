@@ -11,6 +11,7 @@ import AnalyzingProgress from './pages/analyzingprogress';
 import ItemAnalyzed from './pages/itemanalyzed';
 import CurrentlyUsed from './pages/currentlyused';
 import EnterRoom from './pages/enterroom'
+import PutHeadphonesOn from './pages/PutHeadphonesOn';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +33,7 @@ type RootStackParamList = {
   ItemAnalyzed: undefined;
   CurrentlyUsed: undefined;
   EnterRoom: undefined;
+  PutHeadphonesOn: undefined; 
   
   // andere Routen hier hinzufügen
 };
@@ -56,6 +58,7 @@ const Stack = createStackNavigator<RootStackParamList>();
           <Stack.Screen name="CurrentlyUsed" component={CurrentlyUsed} options={{ headerShown: false }} />
           <Stack.Screen name="EnterRoom" component={EnterRoom} options={{ headerShown: false }} />
           <Stack.Screen name="Start" component={Start} options={{ headerShown: false }} />
+          <Stack.Screen name="PutHeadphonesOn" component={PutHeadphonesOn} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
     </ItemProvider>
