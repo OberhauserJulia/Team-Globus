@@ -43,15 +43,6 @@ export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
     const showModal = () => setVisible(true);
     const hideModal = () => setVisible(false);
 
-    const containerStyle = {
-        backgroundColor: 'black',
-        padding: 20,
-        height: '60%',
-        width: '90%',
-        borderRadius: 20,
-        alignSelf: 'center',
-    };
-
     return (
         <ImageBackground 
             source={require('../images/decor6.png')} 
@@ -77,7 +68,7 @@ export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
             <View style={{width: '100%', height: "80%"}}>
                 <PaperProvider>
                     <Portal>
-                        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={containerStyle}>
+                        <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modal}>
                             <Text style={styles.modalText}>
                                 Before cancelling the currently played story, please make sure, the installation is really empty!
                             </Text>
@@ -131,6 +122,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textTransform: 'uppercase',
         width: '80%'
+    },
+    modal: {
+        backgroundColor: 'black',
+        padding: 20,
+        height: '60%',
+        width: '90%',
+        borderRadius: 20,
+        alignSelf: 'center',
     },
     subtext: {
         position: 'absolute',

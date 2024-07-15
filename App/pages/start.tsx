@@ -30,7 +30,10 @@ export default function Start({ navigation } : ItemAnalyzedProps ) {
             </View>
             <Button
                 mode="contained"
-                onPress={() => navigation.navigate('PlaceItem')}
+                onPress={() => {
+                    navigation.navigate('PlaceItem')
+                    console.log('Get Started pressed')
+                }}
                 style={styles.button}
                 labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase',}}
             >
