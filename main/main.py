@@ -6,12 +6,14 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import glob 
+import socket
 app = FastAPI()
+
 
 class ItemResponse(BaseModel):
     data: str
 
-preprompt = """Write a short story, with a maximum of 750 words, about the production cycle of a specific product.
+preprompt = """Write a short story, with a maximum of 200 words, about the production cycle of a specific product.
 Start with the raw material extraction: discuss where the resources come from, which specific resources are used, and the working conditions of the laborers, including any environmental impacts.
 When transitioning to the manufacturing part, begin with this sentence: "Once the raw materials have been extracted, they are transported to factories around the world for processing and assembly."
 In the manufacturing part, explore the environmental burdens, working conditions, and process methods. Highlight differences between factories in various regions and how production conditions affect both people and the environment.
@@ -157,9 +159,12 @@ def delte_and_save_audio(result: str):
 
 @app.delete("/stopProcess") 
 def stopprocess():
+
+    send_value("false")
+
     print("Endpoint /stopProcess called\n")
     # Kill all backend processes including the server itself
-    os.system("pkill -f 'uvicorn'")
+    os.system("pkill -f 'uvisscorn'")
     os.system("pkill -f 'capture_save_and_post_image.py'")
     print("Killed all backend processes\n")
 
@@ -170,6 +175,15 @@ def stopprocess():
     print("Server restarted\n")
     
     return "Backend processes stopped and server restarted"
+
+def send_value(value, host='localhost', port=56789):
+    print("send_value was trigged with ", value)
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((host, port))
+            s.sendall(value.encode())
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     print("Starting server\n")
