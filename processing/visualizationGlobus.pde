@@ -7,6 +7,7 @@ int storyCounter = 0;
 int totalStories = 0;
 int noOfPoints = 6000; // Number of particles
 color col;
+int storyToDelete = 0;
 
 
 void setup() {
@@ -14,7 +15,7 @@ void setup() {
   socketListener = new SocketListener(56789);
   // Start the socket listener in a new thread
   socketListener.start();
-  size(1280, 1080, P2D);
+  size(1280, 1080);
   showSetup();
   countWavFiles();
 }
@@ -94,10 +95,10 @@ void showManager(){
     storyCounter = 0;
   }
   if (extractor == null || !extractor.player.isPlaying()) {
-    println("Socket says ", socketListener.socketSays);
+    //println("Socket says ", socketListener.socketSays);
     baseShow();
   } else {
-    println("Socket says ", socketListener.socketSays);
+    //println("Socket says ", socketListener.socketSays);
     specialShow();
   }
 }
@@ -106,7 +107,7 @@ void draw() {
   showManager();
   countWavFiles();
   if (totalStories > 0) {
-    println("totalStories > 0: " + totalStories);
+    //println("totalStories > 0: " + totalStories);
     if (extractor == null) {
       println("extractor is null, playing next story");
       playNextStory();
@@ -139,7 +140,7 @@ void countWavFiles() {
         count++;
       }
 
-      if (storyCounter > 0 && file.getName().equalsIgnoreCase("story0.wav")) {
+      if (storyCounter > 0 && file.getName().equalsIgnoreCase("story0.wav") && extractor == null) {
         println("Found story0.wav");
         storyCounter = 0;
       }
@@ -147,7 +148,7 @@ void countWavFiles() {
   }
 
   totalStories = count;
-  println("Counted files: " + totalStories);
+  //println("Counted files: " + totalStories);
 }
 
 // Method to delete all files inside a folder
@@ -169,24 +170,59 @@ void deleteAllFilesInFolder(String folderPath) {
 }
 
 void playNextStory() {
+  println("StoryCounter before playNextStory; ", storyCounter);
+  
+  if (!isFileInFolder(storyCounter)) {
+    println("File not found for storyCounter: " + storyCounter);
+    extractor.close();
+    deleteAllFilesInFolder("data");
+    storyCounter = 0;
+    storyToDelete = 0;
+    return; // Skip the rest of the method if the file is not found
+  }
+  
   if (extractor != null) {
     extractor.close();
   }
+  
+  if (storyToDelete > 0) {
+    deleteFile(storyToDelete);
+  }
+  
   String filePath = String.format("data/story%d.wav", storyCounter);
   extractor = new WavDataExtractor(this, filePath);
 
   // Call showManager before playing the next story
   showManager();
-
+  println("Playing story part; ", storyCounter);
   extractor.player.play();
+  storyToDelete = storyCounter;
   storyCounter++;
+  println("StoryCounter after playNextStory; ", storyCounter);
+}
 
-  // Delete the file after playing
-  File playedFile = new File(sketchPath(filePath));
-  if (playedFile.exists() && playedFile.delete()) {
+void deleteFile(int storyToDelete) {
+  // Construct the file path
+  println("DeleteFIle called with; ", storyToDelete);
+  String filePath = String.format("data/story%d.wav", storyToDelete - 1);
+  File fileToDelete = new File(sketchPath(filePath));
+  
+  // Ensure the file is closed before deleting
+  if (extractor != null) {
+    extractor.close();
+  }
+
+  // Attempt to delete the file
+  if (fileToDelete.exists() && fileToDelete.delete()) {
     println("Deleted file: " + filePath);
   } else {
     println("Failed to delete file: " + filePath);
   }
 }
-  
+
+boolean isFileInFolder(int count) {
+  String filePath = sketchPath(String.format("data/story%d.wav", count));
+  println("Checking for File: ", filePath);
+  File file = new File(filePath);
+  return file.exists();
+}
