@@ -19,10 +19,14 @@ export default function PutHeadphonesOn({ navigation }: PlaceItemProps) {
   const [changeScreen, setChangeScreen] = React.useState(false);
 
 
-  const handlePress = async() => {
-      navigation.navigate('EnterRoom');
-    
-  }
+  const handlePress = async () => {
+    try {
+        navigation.navigate('EnterRoom');
+        axios.post(`http://${process.env.IP_ADRESS}:4000/api/itemanalyzed/${item}`);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
