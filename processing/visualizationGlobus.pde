@@ -86,6 +86,11 @@ void showManager(){
     println("Stopping the Audio"); 
     if (extractor != null) {
       extractor.stopAudio(); // Stop the audio playback if any is played
+      extractor.close();
+      deleteAllFilesInFolder("data");
+      storyCounter = 0;
+      storyToDelete = 0;
+      
     }
     println("Switching to baseShow");
     baseShow();
@@ -95,10 +100,10 @@ void showManager(){
     storyCounter = 0;
   }
   if (extractor == null || !extractor.player.isPlaying()) {
-    //println("Socket says ", socketListener.socketSays);
+    println("Socket says ", socketListener.socketSays);
     baseShow();
   } else {
-    //println("Socket says ", socketListener.socketSays);
+    println("Socket says ", socketListener.socketSays);
     specialShow();
   }
 }
@@ -174,8 +179,8 @@ void playNextStory() {
   
   if (!isFileInFolder(storyCounter)) {
     println("File not found for storyCounter: " + storyCounter);
-    extractor.close();
     deleteAllFilesInFolder("data");
+    extractor.close();
     storyCounter = 0;
     storyToDelete = 0;
     return; // Skip the rest of the method if the file is not found
