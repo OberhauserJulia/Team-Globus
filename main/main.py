@@ -46,8 +46,8 @@ print("Environment variables loaded from .env file\n")
 async def place_item():
     print("Endpoint /api/placeitem called\n")
     # Create a CameraHandler object
-    camera_handler = CameraHandler()
-    print("CameraHandler object created\n")
+   
+    
     # Capture an image and send to server for processing
     response = camera_handler.capture_image()
     print(f"Server response (image recognition): {response}\n")
@@ -56,9 +56,9 @@ async def place_item():
 @app.post("/api/itemanalyzed/{item}", response_model=ItemResponse)
 async def item_analyzed(item: str):
     # BG Music 
-    playBackgroundMusic("bgm.mp3")
+    playBackgroundMusic(r"C:\Users\Admin\Documents\Team-Globus\main\bgm.mp3")
     #Onboarding starten: 
-    onboarding("onboarding.wav")
+    onboarding(r"C:\Users\Admin\Documents\Team-Globus\main\onboarding.wav")
 
 
     print(f"Endpoint /api/itemanalyzed/{item} called\n")
@@ -227,7 +227,7 @@ def onboarding(result: str):
     processing_dir = os.path.join(script_dir, "../processing/data")
     os.makedirs(processing_dir, exist_ok=True)
 
-    new_result = os.path.join(processing_dir, "audio0.wav")
+    new_result = os.path.join(processing_dir, "story0.wav")
 
     if os.path.exists(new_result):
         os.remove(new_result)
@@ -238,6 +238,8 @@ def onboarding(result: str):
     return new_result
 
 if __name__ == "__main__":
+    camera_handler = CameraHandler()
+    print("CameraHandler object created\n")
     print("Starting server\n")
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=4000)
