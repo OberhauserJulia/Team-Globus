@@ -55,6 +55,8 @@ async def place_item():
 
 @app.post("/api/itemanalyzed/{item}", response_model=ItemResponse)
 async def item_analyzed(item: str):
+    playBackgroundMusic("bgm.mp3")
+
     print(f"Endpoint /api/itemanalyzed/{item} called\n")
     prompt = f"{preprompt} /n this is the product: {item}"
     print(f"Prompt created: {prompt}\n")
@@ -79,6 +81,9 @@ async def item_analyzed(item: str):
 
     split_text = devide_text(story_text)
     print(f"Text divided into {len(split_text)} parts\n")
+
+    #BG Music 
+
 
     audioarray = [] 
     #delete_existing() 
@@ -184,6 +189,22 @@ def send_value(value, host='localhost', port=56789):
             s.sendall(value.encode())
     except Exception as e:
         print(f"An error occurred: {e}")
+
+import os
+import platform
+
+
+def playBackgroundMusic(file_path: str):
+    if platform.system() == "Windows":
+        os.system(f'start {file_path}')
+    elif platform.system() == "Darwin":  # macOS
+        os.system(f'open {file_path}')
+    elif platform.system() == "Linux":
+        os.system(f'xdg-open {file_path}')
+    else:
+        print("Unsupported OS")
+
+
 
 if __name__ == "__main__":
     print("Starting server\n")
