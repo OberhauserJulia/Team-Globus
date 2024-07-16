@@ -110,9 +110,19 @@ async def item_analyzed(item: str):
     return {"response": "Audio is saved completely\n"}
 
 def devide_text(text: str):
+    tooshort = ""
     new_text = text.strip().split('\n\n')
-    print("Text divided into paragraphs\n")
-    return new_text
+    finaltext = [] 
+
+    for p in new_text:
+        tooshort += p
+
+        if len(tooshort.split() ) > 10:
+            finaltext.append(tooshort)
+            tooshort = ""
+    finaltext.append(tooshort)
+    print(finaltext)
+    return finaltext
 
 def open_audio_file(new_result: str):
     print(f"Opening audio file: {new_result}\n")
