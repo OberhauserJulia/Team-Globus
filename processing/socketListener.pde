@@ -5,7 +5,7 @@ SocketListener socketListener;
 
 class SocketListener extends Thread {
   ServerSocket server;
-  boolean socketSays;
+  boolean socketSays = true;
 
   SocketListener(int port) {
     try {
