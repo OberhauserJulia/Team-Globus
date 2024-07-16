@@ -5,7 +5,7 @@ Particle[] baseParticles;
 Particle[] specialParticles;
 int storyCounter = 0;
 int totalStories = 0;
-int noOfPoints = 6000; // Number of particles
+int noOfPoints = 10000; // Number of particles
 color col;
 int storyToDelete = 0;
 
@@ -15,7 +15,7 @@ void setup() {
   socketListener = new SocketListener(56789);
   // Start the socket listener in a new thread
   socketListener.start();
-  size(1280, 1080);
+  fullScreen();
   showSetup();
   countWavFiles();
 }
@@ -98,6 +98,8 @@ void showManager(){
     deleteAllFilesInFolder("data");
     println("Reseting StoryCounter");
     storyCounter = 0;
+    println("######################################## RESSETTING SOCKET TO TRUE ##########################################################");
+    socketListener.socketSays = true;
   }
   if (extractor == null || !extractor.player.isPlaying()) {
     println("Socket says ", socketListener.socketSays);
