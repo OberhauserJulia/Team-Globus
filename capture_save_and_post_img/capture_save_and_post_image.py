@@ -7,37 +7,18 @@ class CameraHandler:
     def __init__(self, save_path='./image_captured/captured_image.jpg'):
         self.save_path = save_path
         self.server_api = "http://localhost:4455/predict/"
-
-    def test_cameras(self):
-        index = 0
-        i = 1 
-        while True:
-            print(i)
-            i+=1 
-            cap = cv2.VideoCapture(index)
-            if not cap.read()[0]:
-                print(f"No camera found at index {index}")
-            else:
-                print(f"Camera found at index {index}!")
-                cap.release()
-                break
-            index += 1
-            cap.release()
-            if index > 3:  # Adjust the range as needed
-                break
+        self.camera_index = 1  # Directly set to the second camera index (usually the webcam)
 
     def capture_image(self):
         start_time = time.time()
 
-        self.test_cameras()
-        print(f"Time taken to test cameras: {time.time() - start_time:.2f} seconds")
+        print(f"Time taken to set camera index: {time.time() - start_time:.2f} seconds")
 
-        # Attempt to open the first available camera
-        camera_index = 0  # Change this if the default isn't correct
-        cap = cv2.VideoCapture(camera_index)
+        # Attempt to open the second camera (index 1)
+        cap = cv2.VideoCapture(self.camera_index)
 
         if not cap.isOpened():
-            print("Error: Cannot open webcam")
+            print("Error: Cannot open webcam at index", self.camera_index)
             return
 
         # Skip initial frames
@@ -85,3 +66,5 @@ class CameraHandler:
         except requests.exceptions.RequestException as e:
             print(f"Error sending image to server: {e}")
             return None
+
+
