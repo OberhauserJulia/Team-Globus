@@ -55,7 +55,11 @@ async def place_item():
 
 @app.post("/api/itemanalyzed/{item}", response_model=ItemResponse)
 async def item_analyzed(item: str):
+    # BG Music 
     playBackgroundMusic("bgm.mp3")
+    #Onboarding starten: 
+    onboarding("onboarding.wav")
+
 
     print(f"Endpoint /api/itemanalyzed/{item} called\n")
     prompt = f"{preprompt} /n this is the product: {item}"
@@ -131,6 +135,7 @@ def delete_existing():
         print(f"Deleted: {wav_file}")
 
 def save_audio(result: str, number: int):
+    number = number + 1 
     print(f"Saving audio file part {number}\n")
     script_dir = os.path.dirname(os.path.abspath(__file__))
     processing_dir = os.path.join(script_dir, "../processing/data")
@@ -204,7 +209,23 @@ def playBackgroundMusic(file_path: str):
     else:
         print("Unsupported OS")
 
+import shutil
 
+def onboarding(result: str):
+    print(f"Saving audio file {result}\n")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    processing_dir = os.path.join(script_dir, "../processing/data")
+    os.makedirs(processing_dir, exist_ok=True)
+
+    new_result = os.path.join(processing_dir, "audio0.wav")
+
+    if os.path.exists(new_result):
+        os.remove(new_result)
+
+    shutil.copy2(result, new_result)
+    print(f"Saved audio file as: {new_result}\n")
+
+    return new_result
 
 if __name__ == "__main__":
     print("Starting server\n")
