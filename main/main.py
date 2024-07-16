@@ -46,8 +46,8 @@ print("Environment variables loaded from .env file\n")
 async def place_item():
     print("Endpoint /api/placeitem called\n")
     # Create a CameraHandler object
-    camera_handler = CameraHandler()
-    print("CameraHandler object created\n")
+   
+    
     # Capture an image and send to server for processing
     response = camera_handler.capture_image()
     print(f"Server response (image recognition): {response}\n")
@@ -55,6 +55,12 @@ async def place_item():
 
 @app.post("/api/itemanalyzed/{item}", response_model=ItemResponse)
 async def item_analyzed(item: str):
+    # BG Music 
+    playBackgroundMusic(r"C:\Users\Admin\Documents\Team-Globus\main\bgm.mp3")
+    #Onboarding starten: 
+    onboarding(r"C:\Users\Admin\Documents\Team-Globus\main\onboarding.wav")
+
+
     print(f"Endpoint /api/itemanalyzed/{item} called\n")
     prompt = f"{preprompt} /n this is the product: {item}"
     print(f"Prompt created: {prompt}\n")
@@ -80,6 +86,9 @@ async def item_analyzed(item: str):
     split_text = devide_text(story_text)
     print(f"Text divided into {len(split_text)} parts\n")
 
+    #BG Music 
+
+
     audioarray = [] 
     #delete_existing() 
     for i in range(len(split_text)): 
@@ -101,9 +110,19 @@ async def item_analyzed(item: str):
     return {"response": "Audio is saved completely\n"}
 
 def devide_text(text: str):
+    tooshort = ""
     new_text = text.strip().split('\n\n')
-    print("Text divided into paragraphs\n")
-    return new_text
+    finaltext = [] 
+
+    for p in new_text:
+        tooshort += p
+
+        if len(tooshort.split() ) > 10:
+            finaltext.append(tooshort)
+            tooshort = ""
+    finaltext.append(tooshort)
+    print(finaltext)
+    return finaltext
 
 def open_audio_file(new_result: str):
     print(f"Opening audio file: {new_result}\n")
@@ -126,6 +145,7 @@ def delete_existing():
         print(f"Deleted: {wav_file}")
 
 def save_audio(result: str, number: int):
+    number = number + 1 
     print(f"Saving audio file part {number}\n")
     script_dir = os.path.dirname(os.path.abspath(__file__))
     processing_dir = os.path.join(script_dir, "../processing/data")
@@ -185,7 +205,41 @@ def send_value(value, host='localhost', port=56789):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+import os
+import platform
+
+
+def playBackgroundMusic(file_path: str):
+    if platform.system() == "Windows":
+        os.system(f'start {file_path}')
+    elif platform.system() == "Darwin":  # macOS
+        os.system(f'open {file_path}')
+    elif platform.system() == "Linux":
+        os.system(f'xdg-open {file_path}')
+    else:
+        print("Unsupported OS")
+
+import shutil
+
+def onboarding(result: str):
+    print(f"Saving audio file {result}\n")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    processing_dir = os.path.join(script_dir, "../processing/data")
+    os.makedirs(processing_dir, exist_ok=True)
+
+    new_result = os.path.join(processing_dir, "story0.wav")
+
+    if os.path.exists(new_result):
+        os.remove(new_result)
+
+    shutil.copy2(result, new_result)
+    print(f"Saved audio file as: {new_result}\n")
+
+    return new_result
+
 if __name__ == "__main__":
+    camera_handler = CameraHandler()
+    print("CameraHandler object created\n")
     print("Starting server\n")
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=4000)
