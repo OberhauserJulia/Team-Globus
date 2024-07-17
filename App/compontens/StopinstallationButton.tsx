@@ -26,8 +26,7 @@ export default function StopinstallationButton({setScreen}: ItemAnalyzedProps) {
         navigation.navigate('Start');
         console.log('Navigating to Start page...');
         axios.delete(`http://${process.env.IP_ADRESS}:4000/stopProcess`)
-            .then(response => {
-                console.log('Server response:', response.data); // Erfolgreiche Antwort vom Server
+            .then((response : any)  => {
                 hideModal();
                 console.log('Modal hidden after server response.');
                 // Weitere Aktionen basierend auf der Antwort durchführen
