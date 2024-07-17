@@ -7,13 +7,11 @@ class CameraHandler:
     def __init__(self, save_path='./image_captured/captured_image.jpg'):
         self.save_path = save_path
         self.server_api = "http://localhost:4455/predict/"
+        self.cap = self.open_camera(0) # Change this if the default isn't correct 
 
     def test_cameras(self):
         index = 0
-        i = 1 
         while True:
-            print(i)
-            i+=1 
             cap = cv2.VideoCapture(index)
             if not cap.read()[0]:
                 print(f"No camera found at index {index}")
@@ -29,23 +27,23 @@ class CameraHandler:
     def capture_image(self):
         start_time = time.time()
 
-        self.test_cameras()
+        # self.test_cameras()
         print(f"Time taken to test cameras: {time.time() - start_time:.2f} seconds")
 
         # Attempt to open the first available camera
-        camera_index = 0  # Change this if the default isn't correct
-        cap = cv2.VideoCapture(camera_index)
+        #camera_index = 0  # Change this if the default isn't correct
+        #cap = cv2.VideoCapture(camera_index)
 
-        if not cap.isOpened():
+        if not self.cap.isOpened():
             print("Error: Cannot open webcam")
             return
 
         # Skip initial frames
         for _ in range(3):
-            ret, frame = cap.read()
+            ret, frame = self.cap.read()
             if not ret:
                 print("Failed to grab frame")
-                cap.release()
+                self.cap.release()
                 return
 
         print(f"Time taken to grab frames: {time.time() - start_time:.2f} seconds")
@@ -61,8 +59,8 @@ class CameraHandler:
         response = self.send_to_server(encoded_image)
         print(f"Time taken to send image to server: {time.time() - start_time:.2f} seconds")
 
-        cap.release()
-        cv2.destroyAllWindows()
+        # self.cap.release()
+        # cv2.destroyAllWindows()
         return response
 
     def encode_image(self, frame):
@@ -85,3 +83,8 @@ class CameraHandler:
         except requests.exceptions.RequestException as e:
             print(f"Error sending image to server: {e}")
             return None
+    def open_camera(self , camera_index ):
+        print("Loading Camera")
+        cap = cv2.VideoCapture(camera_index)
+        print("Camera Loaded")
+        return cap 

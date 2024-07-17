@@ -41,12 +41,13 @@ from gradio_client import Client
 # Load environment variables from .env file such as the server API
 load_dotenv()
 print("Environment variables loaded from .env file\n")
+print("Loading Camera Handler" )
+camera_handler = CameraHandler()
 
 @app.post("/api/placeitem", response_model=ItemResponse)
 async def place_item():
     print("Endpoint /api/placeitem called\n")
     # Create a CameraHandler object
-    camera_handler = CameraHandler()
     print("CameraHandler object created\n")
     # Capture an image and send to server for processing
     response = camera_handler.capture_image()
