@@ -21,7 +21,7 @@ export default function Start({ navigation } : ItemAnalyzedProps ) {
                         <Text style={styles.reflectYourCycle}>
                             REFLECT
                             {'\n'}
-                            YOUR
+                            THE
                             {'\n'}
                             CYCLE
                         </Text>
