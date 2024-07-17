@@ -13,14 +13,21 @@ app = FastAPI()
 class ItemResponse(BaseModel):
     data: str
 
-preprompt = """Write a short story, with a maximum of 200 words, about the production cycle of a specific product.
-Start with the raw material extraction: discuss where the resources come from, which specific resources are used, and the working conditions of the laborers, including any environmental impacts.
-When transitioning to the manufacturing part, begin with this sentence: "Once the raw materials have been extracted, they are transported to factories around the world for processing and assembly."
-In the manufacturing part, explore the environmental burdens, working conditions, and process methods. Highlight differences between factories in various regions and how production conditions affect both people and the environment.
-When transitioning to the transportation part, begin with this sentence: "With the product assembled, it now begins its journey to consumers across the globe."
-In the transportation part, describe the transportation methods commonly used and their environmental impacts, including CO2 emissions and other ecological damages.
-When transitioning to the end usage part, begin with this sentence: "After the product reaches the hands of consumers, its lifecycle continues through daily use until it reaches the end of its useful life."
-In the end usage part, investigate the product’s lifespan, disposal, and recycling possibilities. Explain how some parts are incinerated or deposited, while others are recycled and transformed into new products. Discuss the environmental burden of disposal methods.
+preprompt = """Write a really, really short story, with a maximum of 50 words, about the production cycle of a specific product. 
+Start with the raw material extraction: discuss where the resources come from, which specific resources are used, and the working conditions of the laborers. 
+When transitioning to the manufacturing part, begin with this sentence: 
+"Once the Raw materials extracted, they are shipped to factories globally for processing."  
+In the manufacturing part, explore the environmental burdens, working conditions, and process methods. 
+Also tell how production conditions affect both people and the environment.  
+When transitioning to the transportation part, begin with this sentence: 
+"With the product assembled, it now travels to consumers worldwide."  
+In the transportation part, 
+describe the transportation methods commonly used and their environmental impacts, 
+including CO2 emissions and other ecological damages.  
+When transitioning to the end usage part, begin with this sentence: 
+"After reaching consumers, its lifecycle continues until it ends.” 
+Explain how some parts are incinerated or deposited, while others are recycled and transformed into new products. 
+Discuss the environmental burden of disposal methods.
 Please ensure smooth transitions and engage the consumer, incorporating them into the story to some extent.
 
 """
@@ -96,12 +103,12 @@ async def item_analyzed(item: str):
     #delete_existing() 
     for i in range(len(split_text)): 
         print(f"Loading New Text part {i}: {split_text[i]}\n")
-
+        paragraph = split_text[i] + "........."
         client = Client("mrfakename/MeloTTS")
         result = client.predict(
-                text=split_text[i],
-                speaker="EN-BR",
-                speed=0.8,
+                text=paragraph,
+                speaker="EN-Default",
+                speed=0.9,
                 language="EN",
                 api_name="/synthesize"
         )
@@ -109,7 +116,7 @@ async def item_analyzed(item: str):
 
         audioarray.append(result)
         save_audio(result, i)   
-    print("Audio Array: " + audioarray + "\n")
+    print("Audio Array: ", audioarray, "\n")
     return {"response": "Audio is saved completely\n"}
 
 def devide_text(text: str):

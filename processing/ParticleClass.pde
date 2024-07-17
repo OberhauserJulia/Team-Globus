@@ -2,7 +2,7 @@ class Particle {
   PVector pos;
   PVector vel;
   PVector acc;
-  float maxSpeed = 1; // Speed of particles
+  float maxSpeed = 5; // Speed of particles
   PVector prevPos;
   int col;
 
