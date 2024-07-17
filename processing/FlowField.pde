@@ -26,7 +26,7 @@ class FlowField {
       }
       yoff += inc;
     }
-    zoff += (inc / 20); // Speed of evolution
+    zoff += (inc / 10); // Speed of evolution
   }
   
   PVector lookup(PVector lookup) {

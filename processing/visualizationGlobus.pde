@@ -5,7 +5,7 @@ Particle[] baseParticles;
 Particle[] specialParticles;
 int storyCounter = 0;
 int totalStories = 0;
-int noOfPoints = 10000; // Number of particles
+int noOfPoints = 20000; // Number of particles
 color col;
 int storyToDelete = 0;
 
@@ -65,12 +65,12 @@ void specialShow(){
 int getColorBasedOnStoryCounter(int counter) {
   // Dictionary of colors
   HashMap<Integer, Integer> colorDict = new HashMap<Integer, Integer>() {{
-    put(1, color(255, 0, 0));     // Red
-    put(2, color(0, 255, 0));     // Green
-    put(3, color(0, 0, 255));     // Blue
-    put(4, color(255, 255, 0));   // Yellow
-    put(5, color(255, 165, 0));   // Orange
-    put(6, color(128, 0, 128));   // Purple
+    put(1, color(0, 255, 204));     // Red
+    put(2, color(234, 40, 208));     // Pink
+    put(3, color(0, 255, 242));     // LightBlue
+    put(4, color(255, 140, 0));   // Orange
+    put(5, color(0, 89, 255));   // DarkBlue
+    put(6, color(51, 204, 0));   // Green
     put(7, color(255, 192, 203)); // Pink
     put(8, color(165, 42, 42));   // Brown
     put(9, color(128, 128, 128)); // Gray
