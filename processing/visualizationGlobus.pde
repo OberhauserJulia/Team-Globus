@@ -6,6 +6,7 @@ Particle[] specialParticles;
 int storyCounter = 0;
 int totalStories = 0;
 int noOfPoints = 20000; // Number of particles
+int gridScale = 30;
 color col;
 int storyToDelete = 0;
 
@@ -23,8 +24,8 @@ void setup() {
 void showSetup(){
   background(0);
   hint(DISABLE_DEPTH_MASK);
-  baseFlowField = new FlowField(40); // Grid scale for the base FlowField
-  specialFlowField = new FlowField(40); // Grid scale for the special FlowField
+  baseFlowField = new FlowField(gridScale); // Grid scale for the base FlowField
+  specialFlowField = new FlowField(gridScale); // Grid scale for the special FlowField
   baseParticles = new Particle[noOfPoints];
   specialParticles = new Particle[noOfPoints];
   col = color(random(55), random(255), random(100));
@@ -35,8 +36,8 @@ void showSetup(){
 }
 
 void baseShow(){
-  fill(0, 6); // Trail length
-  rect(0, 0, width, height);
+  fill(0, 7); // Trail length
+  rect(-10, -10, width + 20, height + 20);
   baseFlowField.update();
   for (int i = 0; i < baseParticles.length; i++) {
     PVector force = baseFlowField.lookup(baseParticles[i].pos);
@@ -49,8 +50,8 @@ void baseShow(){
 
 void specialShow(){
   col = getColorBasedOnStoryCounter(storyCounter); // Update color based on storyCounter
-  fill(0, 6); // Trail length
-  rect(0, 0, width, height);
+  fill(0, 8); // Trail length
+  rect(-10, -10, width + 20, height + 20);
   specialFlowField.update();
   for (int i = 0; i < specialParticles.length; i++) {
     specialParticles[i].setColor(col); // Update color of each particle

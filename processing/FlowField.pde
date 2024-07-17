@@ -1,5 +1,5 @@
 class FlowField {
-  float inc = 0.05; // Smoothness of direction changes
+  float inc = 0.13; // Smoothness of direction changes
   int scl;
   float zoff = 0;
   int cols, rows;
@@ -20,13 +20,13 @@ class FlowField {
         int index = x + y * cols;
         float angle = noise(xoff, yoff, zoff) * TWO_PI;
         PVector v = PVector.fromAngle(angle);
-        v.setMag(1); // Set a constant magnitude
+        v.setMag(4); // Set a constant magnitude
         flowField[index] = v;
         xoff += inc;
       }
       yoff += inc;
     }
-    zoff += (inc / 10); // Speed of evolution
+    zoff += (inc / 8); // Speed of evolution
   }
   
   PVector lookup(PVector lookup) {

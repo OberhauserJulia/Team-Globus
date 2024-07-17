@@ -2,7 +2,7 @@ class Particle {
   PVector pos;
   PVector vel;
   PVector acc;
-  float maxSpeed = 5; // Speed of particles
+  float maxSpeed = 1; // Speed of particles
   PVector prevPos;
   int col;
 
@@ -23,6 +23,7 @@ class Particle {
     vel.limit(maxSpeed);
     pos.add(vel);
     acc.mult(0);
+    pos.add(PVector.random2D().mult(0.1)); // Add a small random vector to the position
   }
 
   void follow(PVector force) {
@@ -30,7 +31,7 @@ class Particle {
   }
 
   void applyForce(PVector force) {
-    acc.add(force.mult(3)); // Strength of the force
+    acc.add(force.mult(0.5)); // Strength of the force
   }
 
   void show() {
