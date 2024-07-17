@@ -66,6 +66,8 @@ const styles = StyleSheet.create({
         width: 289,
     },
     reflectYourCycle: {
+        bottom : '120%' , 
+        borderRadius : 20, 
         color: '#fff',
         fontFamily: '',
         fontSize: 40,
@@ -73,6 +75,8 @@ const styles = StyleSheet.create({
         lineHeight: 57.6,
         textAlign: 'center',
         textTransform: 'uppercase',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Schwarz mit 70% Transparenz
+         
     },
     button: {
         position: 'absolute',

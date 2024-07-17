@@ -73,15 +73,12 @@ export default function ItemAnalyzed({ navigation }: ItemAnalyzedProps) {
 
         <Portal>
           <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={[containerStyle, { zIndex: 100 }]}>
-            <Text style={styles.modalText}>
-              Before cancelling the currently played story, please make sure, the installation is really empty!
-            </Text>
             <View style={styles.buttonContainer}>
               <Text style={styles.modalSubText}>
-                Are you sure you want to stop the installation?
+                Are you sure you want to take a new picture?
               </Text>
               <Button mode="contained" onPress={cancleStory} style={styles.modalButton} labelStyle={styles.modalButtonLabel}>
-                Yes, Stop
+                Yes
               </Button>
               <TouchableOpacity onPress={hideModal}>
                 <Text style={styles.closeModalText}>

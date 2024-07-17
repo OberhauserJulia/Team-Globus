@@ -34,6 +34,7 @@ const IconSwitch: React.FC<IconSwitchProps> = ({ value, onValueChange }) => {
 
 const styles = StyleSheet.create({
   switchContainer: {
+    top: 80,
     width: 140,
     height: 100,
     borderRadius: 100,

@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     lineHeight: 57.6,
     textAlign: 'center',
     textTransform: 'uppercase',
+    bottom: '15%', 
   },
   button: {
     position: 'absolute',
