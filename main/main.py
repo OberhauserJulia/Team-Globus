@@ -13,23 +13,15 @@ app = FastAPI()
 class ItemResponse(BaseModel):
     data: str
 
-preprompt = """Write a really, really short story, with a maximum of 50 words, about the production cycle of a specific product. 
-Start with the raw material extraction: discuss where the resources come from, which specific resources are used, and the working conditions of the laborers. 
-When transitioning to the manufacturing part, begin with this sentence: 
-"Once the Raw materials extracted, they are shipped to factories globally for processing."  
-In the manufacturing part, explore the environmental burdens, working conditions, and process methods. 
-Also tell how production conditions affect both people and the environment.  
-When transitioning to the transportation part, begin with this sentence: 
-"With the product assembled, it now travels to consumers worldwide."  
-In the transportation part, 
-describe the transportation methods commonly used and their environmental impacts, 
-including CO2 emissions and other ecological damages.  
-When transitioning to the end usage part, begin with this sentence: 
-"After reaching consumers, its lifecycle continues until it ends.” 
-Explain how some parts are incinerated or deposited, while others are recycled and transformed into new products. 
-Discuss the environmental burden of disposal methods.
-Please ensure smooth transitions and engage the consumer, incorporating them into the story to some extent.
-
+preprompt = """
+    Use a maximum of 50 words.
+    No summary, no headlines, no introduction. 
+    End every sentence befor a line break with multiple dots ".......". 
+    Write an emotional short story about the lifecycle of the following product including these factors.
+    Handle the ressources needed and tell how those are most likley won.
+    Tell about the production of the product, where was it and how was it produced?
+    Then talk about how the product reaches munich in germany, how does it get here is that sustainable?
+    Finaly discuss how the products life ends. Is it just thrown away are there smart ways to recycle it?
 """
 
 prompt = ""
