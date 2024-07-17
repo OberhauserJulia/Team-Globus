@@ -5,8 +5,8 @@ Particle[] baseParticles;
 Particle[] specialParticles;
 int storyCounter = 0;
 int totalStories = 0;
-int noOfPoints = 10000; // Number of particles
-int gridScale = 8;
+int noOfPoints = 20000; // Number of particles
+int gridScale = 30;
 color col;
 int storyToDelete = 0;
 
@@ -36,7 +36,7 @@ void showSetup(){
 }
 
 void baseShow(){
-  fill(0, 6); // Trail length
+  fill(0, 7); // Trail length
   rect(-10, -10, width + 20, height + 20);
   baseFlowField.update();
   for (int i = 0; i < baseParticles.length; i++) {
