@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         position: 'absolute', 
         bottom: '8%', 
         color: '#fff',
-        fontFamily: 'Helvetica',
+        fontFamily: '',
         fontSize: 18,
         letterSpacing: 14.4,
         lineHeight: 57.6,

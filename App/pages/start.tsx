@@ -35,7 +35,7 @@ export default function Start({ navigation } : ItemAnalyzedProps ) {
                     console.log('Get Started pressed')
                 }}
                 style={styles.button}
-                labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase',}}
+                labelStyle={{ color: 'black', fontFamily: '', fontSize: 20, textTransform: 'uppercase',}}
             >
                 Get Started
             </Button>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     },
     reflectYourCycle: {
         color: '#fff',
-        fontFamily: 'Helvetica',
+        fontFamily: '',
         fontSize: 40,
         letterSpacing: 14.4,
         lineHeight: 57.6,

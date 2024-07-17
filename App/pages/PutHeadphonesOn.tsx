@@ -49,7 +49,7 @@ export default function PutHeadphonesOn({ navigation }: PlaceItemProps) {
         mode="contained"
         onPress={handlePress}
         style={styles.button}
-        labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase',}}
+        labelStyle={{ color: 'black', fontFamily: '', fontSize: 20, textTransform: 'uppercase',}}
       >
         Headphones on 
       </Button>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   reflectYourCycle: {
     color: '#fff',
-    fontFamily: 'Helvetica',
+    fontFamily: '',
     fontSize: 18,
     letterSpacing: 14.4,
     lineHeight: 57.6,

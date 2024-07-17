@@ -57,7 +57,6 @@
     background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 100%);
     background-clip: text;
     color: transparent;
-    font-family: "Outfit-Light", Helvetica;
     font-size: 48px;
     font-weight: 300;
     left: 0;
@@ -75,7 +74,6 @@
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
     background-clip: text;
     color: transparent;
-    font-family: "Outfit-Light", Helvetica;
     font-size: 48px;
     font-weight: 300;
     left: 0;
@@ -92,7 +90,6 @@
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
     background-clip: text;
     color: transparent;
-    font-family: "Outfit-Light", Helvetica;
     font-size: 48px;
     font-weight: 300;
     left: 58px;
@@ -109,7 +106,6 @@
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%);
     background-clip: text;
     color: transparent;
-    font-family: "Outfit-Light", Helvetica;
     font-size: 48px;
     font-weight: 300;
     left: 41px;
@@ -156,7 +152,7 @@
   
   .element-zulqurnain-h .get-started {
     color: #0f1a44;
-    font-family: "Outfit-Regular", Helvetica;
+    font-family: "Outfit-Regular", ;
     font-size: 20px;
     font-weight: 400;
     height: 25px;

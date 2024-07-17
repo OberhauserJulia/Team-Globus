@@ -76,7 +76,7 @@ export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
                                 <Text style={styles.modalSubText}>
                                     Are you sure you want to stop the installation?
                                 </Text>
-                                <Button mode="contained" onPress={goToStartPage} style={styles.button} labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase',}}>
+                                <Button mode="contained" onPress={goToStartPage} style={styles.button} labelStyle={{ color: 'black', fontFamily: '', fontSize: 20, textTransform: 'uppercase',}}>
                                     Yes, Stop
                                 </Button>
                                 <TouchableOpacity onPress={hideModal}>
@@ -92,7 +92,7 @@ export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
                             mode="contained"
                             onPress={showModal}
                             style={styles.button}
-                            labelStyle={{ color: 'black', fontFamily: 'Helvetica', fontSize: 20, textTransform: 'uppercase',}}
+                            labelStyle={{ color: 'black', fontFamily: '', fontSize: 20, textTransform: 'uppercase',}}
                             >
                             Stop the installation
                         </Button>
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '18%', 
         color: '#fff',
-        fontFamily: 'Helvetica',
+        fontFamily: '',
         fontSize: 18,
         letterSpacing: 14.4,
         lineHeight: 57.6,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: '22%', 
         color: '#fff',
-        fontFamily: 'Helvetica',
+        fontFamily: '',
         fontSize: 14,
         letterSpacing: 14.4,
         lineHeight: 42,
@@ -163,20 +163,20 @@ const styles = StyleSheet.create({
     },
     modalText: {
         color: 'white',
-        fontFamily: 'Helvetica',
+        fontFamily: '',
         fontSize: 24,
         textAlign: 'center',
     },
     modalSubText: {
         color: 'white',
-        fontFamily: 'Helvetica',
+        fontFamily: '',
         fontSize: 24,
         textAlign: 'center',
         marginVertical: 20,
     },
     closeModalText: {
         color: 'white',
-        fontFamily: 'Helvetica',
+        fontFamily: '',
         fontSize: 18,
         textAlign: 'center',
         textDecorationLine: 'underline',
