@@ -21,21 +21,21 @@ export default function StopinstallationButton({setScreen}: ItemAnalyzedProps) {
     const [visible, setVisible] = useState(false);
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-    const goToStartPage = () => {
-        setScreen(true)
+    const goToStartPage =  () => {
+    try {
+        setScreen(true);
         navigation.navigate('Start');
         console.log('Navigating to Start page...');
-        axios.delete(`http://${process.env.IP_ADRESS}:4000/stopProcess`)
-            .then((response : any)  => {
-                hideModal();
-                console.log('Modal hidden after server response.');
-                // Weitere Aktionen basierend auf der Antwort durchführen
-            })
-            .catch(error => {
-                console.error('There was an error stopping the process:', error); // Fehlerbehandlung
-                // Weitere Fehlerbehandlungen durchführen
-            });
-    };
+        
+        axios.delete(`http://${process.env.IP_ADRESS}:4000/stopProcess`);
+        hideModal();
+        console.log('Modal hidden after server response.');
+        // Weitere Aktionen basierend auf der Antwort durchführen
+    } catch (error) {
+        console.error('There was an error stopping the process:', error);
+        // Weitere Fehlerbehandlungen durchführen
+    }
+};
 
     const showModal = () => {
         console.log('Show modal triggered');
