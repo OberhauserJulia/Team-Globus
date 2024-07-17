@@ -14,15 +14,20 @@ class ItemResponse(BaseModel):
     data: str
 
 preprompt = """
-    Use a maximum of 50 words.
-    No summary, no headlines, no introduction. 
-    End every sentence befor a line break with multiple dots ".......". 
-    Write an emotional short story about the lifecycle of the following product including these factors.
-    Handle the ressources needed and tell how those are most likley won.
-    Tell about the production of the product, where was it and how was it produced?
-    Then talk about how the product reaches munich in germany, how does it get here is that sustainable?
-    Finaly discuss how the products life ends. Is it just thrown away are there smart ways to recycle it?
+Use a maximum of 50 words.
+No summary, no headlines, no introduction. 
+Start the story with: "Your "
+
+Write a reflective, emotional short story about the lifecycle of the user's item. Include these factors:
+- Handle the resources needed and tell how they are most likely obtained.
+- Describe the production of the item, including location and methods.
+- Explain the journey to Munich in Germany, and its sustainability or lack thereof.
+- Discuss the item's end of life and suggest a smart recycling method, highlighting the environmental impact if not recycled.
+
+Address the user directly to create a personal connection. Use sensory details to enhance the emotional appeal. Format the story in short paragraphs to aid readability. End each sentence with: " (...)".
 """
+
+
 
 prompt = ""
 
@@ -64,7 +69,8 @@ async def item_analyzed(item: str):
 
 
     print(f"Endpoint /api/itemanalyzed/{item} called\n")
-    prompt = f"{preprompt} /n this is the product: {item}"
+    #item = "Smartphone" set this var to the item you want for testing
+    prompt = f"{preprompt} /n The users item: {item}"
     print(f"Prompt created: {prompt}\n")
 
     url = "https://api.asgard.u7s.de/api/generate"
@@ -95,7 +101,7 @@ async def item_analyzed(item: str):
     #delete_existing() 
     for i in range(len(split_text)): 
         print(f"Loading New Text part {i}: {split_text[i]}\n")
-        paragraph = split_text[i] + "........."
+        paragraph = split_text[i] + " (...) (...)"
         client = Client("mrfakename/MeloTTS")
         result = client.predict(
                 text=paragraph,
