@@ -19,7 +19,7 @@ export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
     const goToStartPage = () => {
         try {
             axios.delete(`http://${process.env.IP_ADRESS}:4000/stopProcess`)
-                .then(response => {
+                .then((response : any) => {
                     // Erfolgreiche Antwort vom Server
                     console.log('Server response:', response.data);
                     hideModal();
@@ -94,7 +94,7 @@ export default function CurrentlyUsed({ navigation }: ItemAnalyzedProps) {
                             style={styles.button}
                             labelStyle={{ color: 'black', fontFamily: '', fontSize: 20, textTransform: 'uppercase',}}
                             >
-                            Stop the installation
+                            Restart Installation 
                         </Button>
                     </View>
 
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     },
     subtext: {
         position: 'absolute',
-        bottom: '22%', 
+        bottom: '30%', 
         color: '#fff',
         fontFamily: '',
         fontSize: 14,

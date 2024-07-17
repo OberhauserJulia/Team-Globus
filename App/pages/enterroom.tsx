@@ -38,11 +38,7 @@ export default function EnterRoom({ navigation } : ItemAnalyzedProps ) {
                             {'\n'}
                             the room now
                             {'\n'}
-                            and learn
-                            {'\n'}
-                            about
-                            {'\n'}
-                            your cycle
+                            and learn about your product
                         </Text>
                     </View>
                 </View>

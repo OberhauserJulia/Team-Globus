@@ -197,7 +197,7 @@ def stopprocess():
     os.system("nohup uvicorn main:app --host 0.0.0.0 --port 4000 &")
     print("Server restarted\n")
     
-    return "Backend processes stopped and server restarted"
+    return {"data": "Process stopped"}
 
 def send_value(value, host='localhost', port=56789):
     print("send_value was trigged with ", value)
