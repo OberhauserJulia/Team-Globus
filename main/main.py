@@ -109,7 +109,7 @@ async def item_analyzed(item: str):
         audioarray.append(result)
         save_audio(result, i)   
     print("Audio Array: ", audioarray, "\n")
-    return {"response": "Audio is saved completely\n"}
+    return  {"data": "Process stopped"}
 
 def devide_text(text: str):
     tooshort = ""
@@ -186,15 +186,7 @@ def stopprocess():
 
     print("Endpoint /stopProcess called\n")
     # Kill all backend processes including the server itself
-    os.system("pkill -f 'uvisscorn'")
-    os.system("pkill -f 'capture_save_and_post_image.py'")
-    print("Killed all backend processes\n")
 
-    # Hier noch Befehl um Audio zu stoppen 
-    
-    # Restart the server
-    os.system("nohup uvicorn main:app --host 0.0.0.0 --port 4000 &")
-    print("Server restarted\n")
     
     return {"data": "Process stopped"}
 

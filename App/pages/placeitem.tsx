@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     lineHeight: 57.6,
     textAlign: 'center',
     textTransform: 'uppercase',
+    bottom: '40%', // Position text 20% from the bottom of the image 
   },
   button: {
     position: 'absolute',
