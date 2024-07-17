@@ -117,7 +117,7 @@ async def item_analyzed(item: str):
         audioarray.append(result)
         save_audio(result, i)   
     print("Audio Array: ", audioarray, "\n")
-    return {"response": "Audio is saved completely\n"}
+    return  {"data": "Process stopped"}
 
 def devide_text(text: str):
     tooshort = ""
