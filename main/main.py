@@ -18,14 +18,15 @@ Use a maximum of 50 words.
 No summary, no headlines, no introduction. 
 Start the story with: "Your "
 
-Write an emotional, utopian short story about the lifecycle of the user's product. Include these factors:
+Write a reflective, emotional short story about the lifecycle of the user's item. Include these factors:
 - Handle the resources needed and tell how they are most likely obtained.
-- Describe the production of the product, including location and methods.
-- Explain the journey to Munich, Germany, and its sustainability.
-- Discuss the product's end of life and generate a smart recycling method.
+- Describe the production of the item, including location and methods.
+- Explain the journey to Munich in Germany, and its sustainability or lack thereof.
+- Discuss the item's end of life and suggest a smart recycling method, highlighting the environmental impact if not recycled.
 
-Address the user directly to create a personal connection. Use sensory details to enhance the emotional appeal. Format the story in short paragraphs to aid readability. End each sentence with multiple dots ".......".
+Address the user directly to create a personal connection. Use sensory details to enhance the emotional appeal. Format the story in short paragraphs to aid readability. End each sentence with: " (...)".
 """
+
 
 
 prompt = ""
@@ -68,8 +69,8 @@ async def item_analyzed(item: str):
 
 
     print(f"Endpoint /api/itemanalyzed/{item} called\n")
-    item = "iPhone"
-    prompt = f"{preprompt} /n this is the product: {item}"
+    #item = "Smartphone" set this var to the item you want for testing
+    prompt = f"{preprompt} /n The users item: {item}"
     print(f"Prompt created: {prompt}\n")
 
     url = "https://api.asgard.u7s.de/api/generate"
@@ -100,7 +101,7 @@ async def item_analyzed(item: str):
     #delete_existing() 
     for i in range(len(split_text)): 
         print(f"Loading New Text part {i}: {split_text[i]}\n")
-        paragraph = split_text[i] + ".............."
+        paragraph = split_text[i] + " (...) (...)"
         client = Client("mrfakename/MeloTTS")
         result = client.predict(
                 text=paragraph,
